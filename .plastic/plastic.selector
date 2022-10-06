@@ -1,0 +1,4 @@
+repository "SWSM@wobo5695@cloud"
+  path "/"
+    br "/main"
+    co "/main"
