@@ -120,9 +120,9 @@ public class result_manager : MonoBehaviour
         {
             if (monster_profiles[i].name.Contains(monster_name))
             {
-                Debug.Log("Search");
-                monster_profile.sprite = monster_profiles[i];
-                break;
+                Debug.Log(monster_profiles[i].name);
+                //monster_profile.sprite = monster_profiles[i];
+                //break;
             }
         }
 
