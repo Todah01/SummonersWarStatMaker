@@ -116,11 +116,14 @@ public class result_manager : MonoBehaviour
         Cal_Stat(rune_type, even_rune_stat_type, prefer_stat_type, cur_hp, cur_atk, cur_def, cur_spd);
 
         // set monster profile
-        for(int i=0; i<monster_profiles.Length; i++)
+        string monster_name_tolower = monster_name.ToLower();
+        Debug.Log($"Image/Monster_Profile/{monster_name_tolower}");
+        monster_profile.sprite = Resources.Load<Sprite>($"Image/Monster_Profile/{monster_name_tolower}");
+        for (int i=0; i<monster_profiles.Length; i++)
         {
             if (monster_profiles[i].name.Contains(monster_name))
             {
-                Debug.Log(monster_profiles[i].name);
+                Debug.Log("Search Complete");
                 //monster_profile.sprite = monster_profiles[i];
                 //break;
             }
