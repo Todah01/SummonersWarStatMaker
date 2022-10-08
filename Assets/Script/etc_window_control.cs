@@ -59,6 +59,10 @@ public class etc_window_control : MonoBehaviour
         etc_bg.SetActive(true);
         etc_notice.SetActive(false);
     }
+    public void ApplicationQuit()
+    {
+        Application.Quit();
+    }
     IEnumerator CalculateStart()
     {
         yield return new WaitForSeconds(0.5f);

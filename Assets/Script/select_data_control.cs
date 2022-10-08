@@ -50,14 +50,7 @@ public class select_data_control : MonoBehaviour
     }
     public void Cal_Start()
     {
-        string temp_name = monster_name_drop.GetComponent<monster_dropdown_control>().monster_name_by_value;
-        string monster_name = "";
-        for (int idx = 0; idx < temp_name.Length; idx++)
-        {
-            if (temp_name[idx] == '(')
-                break;
-            monster_name += temp_name[idx];
-        }
+        string monster_name = monster_name_drop.GetComponent<monster_dropdown_control>().monster_name_by_value;
         
         foreach (var obj in rune_slots)
         {
@@ -140,16 +133,20 @@ public class select_data_control : MonoBehaviour
         ispirateon = false;
         word_bubble.SetActive(false);
     }
+    public void loadingOn()
+    {
+        loading_canvas.SetActive(true);
+    }
     public void ResultWindowOpen()
     {
         if (check_rune && check_even_rune_stat && check_prefer_stat)
         {
             resultmanager.GetComponent<result_manager>().Start_StatSetting();
-            loading_canvas.SetActive(true);
             StartCoroutine(OpenResultWindow());
         }
         else
         {
+            loading_canvas.SetActive(false);
             btn_cal_start.GetComponent<Button>().interactable = false;
             btn_cal_start.transform.DOPunchPosition(new Vector3(10f, 0, 0), 0.75f, 50, 0f);
             StartCoroutine(ShakeEffect());

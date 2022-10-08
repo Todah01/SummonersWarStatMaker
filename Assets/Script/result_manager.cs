@@ -11,6 +11,10 @@ public class result_manager : MonoBehaviour
     public GameObject selected_data;
     public GameObject rune_info;
     public GameObject[] rune_info_datas;
+    public GameObject GoogleDataManager;
+    public GameObject txt_crirate;
+    public GameObject txt_res;
+    public GameObject txt_acc;
     public Image rune_img_slot;
     public Image rune_img_pattern;
     public Image monster_profile;
@@ -90,14 +94,14 @@ public class result_manager : MonoBehaviour
 
         // get basic monster stat data
         monster_name_txt.text = monster_name;
-        cur_hp = 11040;
-        cur_atk = 801;
-        cur_def = 604;
-        cur_spd = 103;
-        cur_crirate = 15;
-        cur_cridmg = 50;
-        cur_res = 15;
-        cur_acc = 25;
+        cur_hp = GoogleDataManager.GetComponent<googlesheet_manager>().hp;
+        cur_atk = GoogleDataManager.GetComponent<googlesheet_manager>().atk;
+        cur_def = GoogleDataManager.GetComponent<googlesheet_manager>().def;
+        cur_spd = GoogleDataManager.GetComponent<googlesheet_manager>().spd;
+        cur_crirate = GoogleDataManager.GetComponent<googlesheet_manager>().crirate;
+        cur_cridmg = GoogleDataManager.GetComponent<googlesheet_manager>().cridmg;
+        cur_res = GoogleDataManager.GetComponent<googlesheet_manager>().res;
+        cur_acc = GoogleDataManager.GetComponent<googlesheet_manager>().acc;
 
         // add rune set effect stat
         for(int i=0; i<rune_type.Count; i++)
@@ -116,16 +120,13 @@ public class result_manager : MonoBehaviour
         Cal_Stat(rune_type, even_rune_stat_type, prefer_stat_type, cur_hp, cur_atk, cur_def, cur_spd);
 
         // set monster profile
-        string monster_name_tolower = monster_name.ToLower();
-        Debug.Log($"Image/Monster_Profile/{monster_name_tolower}");
-        monster_profile.sprite = Resources.Load<Sprite>($"Image/Monster_Profile/{monster_name_tolower}");
+        string moneter_name_tolower = monster_name.ToLower();
         for (int i=0; i<monster_profiles.Length; i++)
         {
-            if (monster_profiles[i].name.Contains(monster_name))
+            if (monster_profiles[i].name.ToLower().Contains(moneter_name_tolower))
             {
-                Debug.Log("Search Complete");
-                //monster_profile.sprite = monster_profiles[i];
-                //break;
+                monster_profile.sprite = monster_profiles[i];
+                break;
             }
         }
 
@@ -141,9 +142,15 @@ public class result_manager : MonoBehaviour
         monster_plus_stats_divide[3].text = plus_spd.ToString();
 
         monster_stats_combine[0].text = (Mathf.Min(100, cur_crirate + plus_crirate)).ToString() + "%";
+        if (cur_crirate + plus_crirate >= 100)
+            txt_crirate.GetComponent<result_monster_txt_control>().SetTextColorToRed();
         monster_stats_combine[1].text = (cur_cridmg + plus_cridmg).ToString() + "%";
         monster_stats_combine[2].text = (Mathf.Min(100, cur_res + plus_res)).ToString() + "%";
+        if (cur_res + plus_res >= 100)
+            txt_res.GetComponent<result_monster_txt_control>().SetTextColorToRed();
         monster_stats_combine[3].text = (Mathf.Min(100, cur_acc + plus_acc)).ToString() + "%";
+        if (cur_acc + plus_acc >= 100)
+            txt_acc.GetComponent<result_monster_txt_control>().SetTextColorToRed();
     }
     void Cal_Stat(List<string> rune_type, List<string> even_rune_stat_type, List<string> prefer_stat_type, int hp, int atk, int def, int spd)
     {
