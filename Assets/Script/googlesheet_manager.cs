@@ -21,7 +21,7 @@ public class googlesheet_manager : MonoBehaviour
 
 	#region Local Variable
 	const string URL = "https://docs.google.com/spreadsheets/d/1celyrW7Bud-XAGBVKeYdhFbfPz3nUEEzhOMzZsa1i3w/export?format=tsv";
-	const string URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxK6jKGB9_RVj7NtLDsuNKL_bsgLScSRWV2rIanTDC-iCOnsWGAoAFJ0_L7xvIrS4nNFQ/exec";
+	const string URL_SCRIPT = "https://script.google.com/macros/s/AKfycbwrUlUJLqHgpCUT53HPp0EAVEA5ldVqUVqc0LCCuWcqvcaBG4A3DJIQUsVwOfEdcGZAtg/exec";
 	string monster_name;
     #endregion
 
@@ -40,25 +40,47 @@ public class googlesheet_manager : MonoBehaviour
 
     public void GetValue()
     {
+        Debug.Log("Start GetValue");
+
         monster_name = monster_dropdown.GetComponent<monster_dropdown_control>().monster_name_by_value;
+        if (monster_name == "")
+        {
+            Debug.Log("monster name is null");
+            selected_data.GetComponent<select_data_control>().ResultWindowOpen();
+            return;
+        }
+
         WWWForm form = new WWWForm();
         form.AddField("name", monster_name);
+
+        Debug.Log(monster_name + ": Set Form Complete");
 
         StartCoroutine(Post(form));
     }
     IEnumerator Post(WWWForm form)
     {
+        Debug.Log("Post Start");
+
         using (UnityWebRequest www = UnityWebRequest.Post(URL_SCRIPT, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
 
-            if (www.isDone) Response(www.downloadHandler.text);
+            Debug.Log("Get WebRequest");
+
+            if (www.isDone)
+            {
+                Debug.Log("Wait for download");
+                Response(www.downloadHandler.text);
+                Debug.Log("Complete download");
+            }
             else Debug.Log("데이터 저장소의 응답이 없습니다.");
         }
     }
 
     void Response(string json)
     {
+        Debug.Log("Start Response");
+
         if (string.IsNullOrEmpty(json)) return;
 
         GD = JsonUtility.FromJson<GoogleData>(json);
@@ -71,6 +93,8 @@ public class googlesheet_manager : MonoBehaviour
         cridmg = int.Parse(GD.cridmg);
         res = int.Parse(GD.res);
         acc = int.Parse(GD.acc);
+
+        Debug.Log("End Response");
 
         selected_data.GetComponent<select_data_control>().ResultWindowOpen();
     }

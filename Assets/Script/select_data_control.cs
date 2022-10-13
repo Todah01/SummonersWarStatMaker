@@ -40,6 +40,7 @@ public class select_data_control : MonoBehaviour
     int even_rune_stat_cnt = 3;
     int prefer_stat_cnt = 4;
     bool ispirateon = false;
+    bool check_monster = false;
     bool check_rune = false;
     bool check_even_rune_stat = false;
     bool check_prefer_stat = false;
@@ -51,7 +52,8 @@ public class select_data_control : MonoBehaviour
     public void Cal_Start()
     {
         string monster_name = monster_name_drop.GetComponent<monster_dropdown_control>().monster_name_by_value;
-        
+        if (monster_name != "") check_monster = true;
+
         foreach (var obj in rune_slots)
         {
             if (obj.GetComponent<rune_slot_control>().dropdown_value != 0)
@@ -133,20 +135,19 @@ public class select_data_control : MonoBehaviour
         ispirateon = false;
         word_bubble.SetActive(false);
     }
-    public void loadingOn()
+    public void loadingOn(bool check)
     {
-        loading_canvas.SetActive(true);
+        loading_canvas.SetActive(check);
     }
     public void ResultWindowOpen()
     {
-        if (check_rune && check_even_rune_stat && check_prefer_stat)
+        if (check_monster && check_rune && check_even_rune_stat && check_prefer_stat)
         {
             resultmanager.GetComponent<result_manager>().Start_StatSetting();
             StartCoroutine(OpenResultWindow());
         }
         else
         {
-            loading_canvas.SetActive(false);
             btn_cal_start.GetComponent<Button>().interactable = false;
             btn_cal_start.transform.DOPunchPosition(new Vector3(10f, 0, 0), 0.75f, 50, 0f);
             StartCoroutine(ShakeEffect());
@@ -155,18 +156,28 @@ public class select_data_control : MonoBehaviour
     IEnumerator OpenResultWindow()
     {
         yield return new WaitForSeconds(2f);
-        loading_canvas.SetActive(false);
+        loadingOn(false);
         result_ui.SetActive(true);
     }
     IEnumerator ShakeEffect()
     {
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(1f);
 
+        loadingOn(false);
         pirate.SetActive(true);
+
+        if(!check_monster)
+        {
+            msg_error.text = "selected data";
+            selected_monster_bg.GetComponent<Text>()
+                .DOFade(0.2f, 0.25f)
+                .SetEase(Ease.OutSine)
+                .SetLoops(4, LoopType.Yoyo);
+        }
 
         if (!check_rune || !check_even_rune_stat)
         {
-            msg_error.text += "rune set part\n";
+            msg_error.text = "selected data";
             selected_rune_bg.GetComponent<Text>()
                 .DOFade(0.2f, 0.25f)
                 .SetEase(Ease.OutSine)
@@ -175,7 +186,7 @@ public class select_data_control : MonoBehaviour
             
         if (!check_prefer_stat)
         {
-            msg_error.text += "stat part";
+            msg_error.text = "selected data";
             selected_prefer_stat_bg.GetComponent<Text>()
                 .DOFade(0.2f, 0.25f)
                 .SetEase(Ease.OutSine)

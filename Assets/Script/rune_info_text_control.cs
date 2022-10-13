@@ -21,13 +21,17 @@ public class rune_info_text_control : MonoBehaviour
             stat_amount.transform.localPosition = new Vector3(52f, 0f, this.transform.localPosition.z);
             stat_amount.color = color;
         }
+        else if (stat_name.text == "Resistance")
+        {
+            ColorUtility.TryParseHtmlString("#FFFFFF", out color);
+            stat_amount.transform.localPosition = new Vector3(135f, 0f, this.transform.localPosition.z);
+            stat_amount.color = color;
+        }
         else
         {
             ColorUtility.TryParseHtmlString("#FFFFFF", out color);
             stat_amount.transform.localPosition = new Vector3(130f, 0f, this.transform.localPosition.z);
             stat_amount.color = color;
         }
-
-        
     }
 }

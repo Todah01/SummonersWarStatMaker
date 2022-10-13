@@ -32,7 +32,7 @@ public class monster_dropdown_control : MonoBehaviour
     {
         dropdown.options.Clear();
         // string search_str = monster_name_str.text;
-        List<Dictionary<string, object>> monster_names = CSVReader.Read("monster_name_data");
+        List<Dictionary<string, object>> monster_names = CSVReader.Read("monster_name_merge");
 
         for (int i = 0; i < monster_names.Count; i++)
         {

@@ -52,6 +52,8 @@ public class result_manager : MonoBehaviour
     #endregion
     private void Start()
     {
+        Debug.Log("Start CalStat");
+
         // set separate_stats
         Dictionary<string, int> separate_stat_1 = new Dictionary<string, int>()
         {
@@ -165,7 +167,6 @@ public class result_manager : MonoBehaviour
                     break;
                 case 2:
                     CheckEvenRuneStat(rune_number);
-                    CalStatFromPreferStat(rune_number);
                     break;
                 case 3:
                     plus_def += 160;
@@ -173,7 +174,6 @@ public class result_manager : MonoBehaviour
                     break;
                 case 4:
                     CheckEvenRuneStat(rune_number);
-                    CalStatFromPreferStat(rune_number);
                     break;
                 case 5:
                     plus_hp += 2448;
@@ -181,7 +181,6 @@ public class result_manager : MonoBehaviour
                     break;
                 case 6:
                     CheckEvenRuneStat(rune_number);
-                    CalStatFromPreferStat(rune_number);
                     break;
             }
         }
@@ -195,6 +194,8 @@ public class result_manager : MonoBehaviour
             else if (even_rune_stat_type[0] == "HP") plus_hp += Mathf.RoundToInt((float)cur_hp * 0.63f);
             else if (even_rune_stat_type[0] == "ATK") plus_atk += Mathf.RoundToInt((float)cur_atk * 0.63f);
             else if (even_rune_stat_type[0] == "DEF") plus_def += Mathf.RoundToInt((float)cur_def * 0.63f);
+
+            CalStatFromPreferStat(number);
         }
         else if (number == 4)
         {
@@ -203,6 +204,7 @@ public class result_manager : MonoBehaviour
             else if (even_rune_stat_type[1] == "DEF") plus_def += Mathf.RoundToInt((float)cur_def * 0.63f);
             else if (even_rune_stat_type[1] == "CRI RATE") plus_crirate += 58;
             else if (even_rune_stat_type[1] == "CRI DMG") plus_cridmg += 80;
+            CalStatFromPreferStat(number);
         }
         else if (number == 6)
         {
@@ -211,6 +213,8 @@ public class result_manager : MonoBehaviour
             else if (even_rune_stat_type[2] == "DEF") plus_def += Mathf.RoundToInt((float)cur_def * 0.63f);
             else if (even_rune_stat_type[2] == "RES") plus_res += 64;
             else if (even_rune_stat_type[2] == "ACC") plus_acc += 64;
+            
+            CalStatFromPreferStat(number);
         }
     }
 
@@ -260,9 +264,9 @@ public class result_manager : MonoBehaviour
                     break;
                 case "ACC":
                     if (i == 0) min_acc = 85;
-                    else if (i == 1) min_acc = 75;
-                    else if (i == 2) min_acc = 65;
-                    else if (i == 3) min_acc = 55;
+                    else if (i == 1) min_acc = 70;
+                    else if (i == 2) min_acc = 55;
+                    else if (i == 3) min_acc = 40;
                     prefer_acc = true;
                     break;
                 case "RES":
@@ -276,7 +280,7 @@ public class result_manager : MonoBehaviour
         Dictionary<string, int> temp_rune_info = new Dictionary<string, int>();
 
         int pre_option_percentage = Random.Range(1, 101);
-        if (pre_option_percentage > 20) pre_option_possible = true;
+        if (pre_option_percentage > 31) pre_option_possible = true;
 
         // set pre-option
         if (number != 2 && prefer_acc && pre_option_possible)
@@ -325,6 +329,8 @@ public class result_manager : MonoBehaviour
                 temp_rune_info.Add(prefer_stat_type[i], rainforce_value);
             }
 
+            Debug.Log(number + " Part 1. Calculate Ok");
+
             // set prefer extra basic stat to rune
             foreach (string key in stat_scoreboard.Keys)
             {
@@ -346,6 +352,8 @@ public class result_manager : MonoBehaviour
                     break;
             }
 
+            Debug.Log(number + " Part 2. Calculate Ok");
+
             // rainforce count variable
             int rainforce_cnt = 0;
 
@@ -355,20 +363,20 @@ public class result_manager : MonoBehaviour
                 string rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                 int rainforce_value = CalRainforceValue(stat_rainforce_value[rainforce_stat]);
 
-                if(prefer_crirate && rainforce_stat == "CRI RATE" && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] < min_crirate
-                    && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
+                if(prefer_crirate && rainforce_stat == "CRI RATE" && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] < min_crirate)
+                    //&& cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
-                else if (prefer_acc && rainforce_stat == "ACC" && cur_acc + plus_acc + temp_rune_info[rainforce_stat] < min_acc
-                    && cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
+                else if (prefer_acc && rainforce_stat == "ACC" && cur_acc + plus_acc + temp_rune_info[rainforce_stat] < min_acc)
+                    //&& cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
-                else if (prefer_res && rainforce_stat == "RES" && cur_res + plus_res + temp_rune_info[rainforce_stat] < min_res
-                    && cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
+                else if (prefer_res && rainforce_stat == "RES" && cur_res + plus_res + temp_rune_info[rainforce_stat] < min_res)
+                    //&& cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
@@ -383,6 +391,9 @@ public class result_manager : MonoBehaviour
                     rainforce_cnt += 1;
                 }
             }
+
+            Debug.Log(number + " Part 3. Calculate Ok");
+
         }
         // if rune number is even number, check even number main stat before add stat to rune.
         else
@@ -413,6 +424,8 @@ public class result_manager : MonoBehaviour
                 temp_rune_info.Add(prefer_stat_type[i], rainforce_value);
             }
 
+            Debug.Log(number + " Part 1. Calculate Ok");
+
             // set prefer extra basic stat to rune
             foreach (string key in stat_scoreboard.Keys)
             {
@@ -433,6 +446,8 @@ public class result_manager : MonoBehaviour
                 if (temp_rune_info.Count == rune_stat_cnt)
                     break;
             }
+
+            Debug.Log(number + " Part 2. Calculate Ok");
 
             // rainforce count variable
             int rainforce_cnt = 0;
@@ -463,20 +478,20 @@ public class result_manager : MonoBehaviour
 
                 int rainforce_value = CalRainforceValue(stat_rainforce_value[rainforce_stat]);
 
-                if (prefer_crirate && rainforce_stat == "CRI RATE" && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] < min_crirate
-                    && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
+                if (prefer_crirate && rainforce_stat == "CRI RATE" && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] < min_crirate)
+                    //&& cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
-                else if (prefer_acc && rainforce_stat == "ACC" && cur_acc + plus_acc + temp_rune_info[rainforce_stat] < min_acc
-                    && cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
+                else if (prefer_acc && rainforce_stat == "ACC" && cur_acc + plus_acc + temp_rune_info[rainforce_stat] < min_acc)
+                    //&& cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
-                else if (prefer_res && rainforce_stat == "RES" && cur_res + plus_res + temp_rune_info[rainforce_stat] < min_res
-                    && cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
+                else if (prefer_res && rainforce_stat == "RES" && cur_res + plus_res + temp_rune_info[rainforce_stat] < min_res)
+                    //&& cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
@@ -491,6 +506,8 @@ public class result_manager : MonoBehaviour
                     rainforce_cnt += 1;
                 }
             }
+
+            Debug.Log(number + " Part 3. Calculate Ok");
         }
 
         // conversion rune stat
