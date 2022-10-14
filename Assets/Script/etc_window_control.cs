@@ -10,19 +10,44 @@ public class etc_window_control : MonoBehaviour
     public GameObject etc_start;
     public GameObject etc_bg;
     public GameObject etc_notice;
+    public GameObject word_bubble_in_stats;
+    public GameObject word_bubble_in_angel;
     public GameObject select_data;
     public GameObject loading_canvas;
 
     Animator warrior_anim;
     Animator angelmon_anim;
     bool isetcopen = false;
+    bool check_stat_click = false;
     private void Awake()
     {
         warrior_anim = etc_start.GetComponent<Animator>();
         angelmon_anim = etc_angel.GetComponent<Animator>();
     }
+    public void StartRepeatingWordBubble()
+    {
+        InvokeRepeating("WordBubbleActive", 0f, 5f);
+    }
+    void WordBubbleActive()
+    {
+        if (check_stat_click)
+        {
+            CancelInvoke("WordBubbleActive");
+        }
+        else
+        {
+            word_bubble_in_stats.SetActive(true);
+            StartCoroutine(WordBubbleCancle());
+        }
+    }
+    IEnumerator WordBubbleCancle()
+    {
+        yield return new WaitForSeconds(2f);
+        word_bubble_in_stats.SetActive(false);
+    }
     public void OnClickStartBtn()
     {
+        check_stat_click = true;
         warrior_anim.SetTrigger("IsMotion");
         StartCoroutine(CalculateStart());
     }

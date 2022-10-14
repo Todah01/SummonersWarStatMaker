@@ -23,6 +23,7 @@ public class select_data_control : MonoBehaviour
     public GameObject pirate;
     public GameObject word_bubble;
     public GameObject monster_name_drop;
+    
     public List<int> rune_dropdown_values;
     public List<string> rune_type;
     public List<string> even_rune_stat_type;
@@ -51,7 +52,7 @@ public class select_data_control : MonoBehaviour
     }
     public void Cal_Start()
     {
-        string monster_name = monster_name_drop.GetComponent<monster_dropdown_control>().monster_name_by_value;
+        string monster_name = monster_name_drop.GetComponent<inputfield_test>().CheckMonsterName;
         if (monster_name != "") check_monster = true;
 
         foreach (var obj in rune_slots)

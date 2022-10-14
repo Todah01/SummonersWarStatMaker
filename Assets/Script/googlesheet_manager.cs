@@ -13,7 +13,7 @@ public class GoogleData
 public class googlesheet_manager : MonoBehaviour
 {
 	#region Public Variable
-	public GameObject monster_dropdown;
+	public GameObject monster_input_name;
     public GameObject selected_data;
 	public GoogleData GD;
 	public int hp, atk, def, spd, crirate, cridmg, res, acc;
@@ -42,10 +42,10 @@ public class googlesheet_manager : MonoBehaviour
     {
         Debug.Log("Start GetValue");
 
-        monster_name = monster_dropdown.GetComponent<monster_dropdown_control>().monster_name_by_value;
+        monster_name = monster_input_name.GetComponent<inputfield_test>().CheckMonsterName;
         if (monster_name == "")
         {
-            Debug.Log("monster name is null");
+            Debug.Log("Error : monster name is null");
             selected_data.GetComponent<select_data_control>().ResultWindowOpen();
             return;
         }
@@ -73,7 +73,7 @@ public class googlesheet_manager : MonoBehaviour
                 Response(www.downloadHandler.text);
                 Debug.Log("Complete download");
             }
-            else Debug.Log("데이터 저장소의 응답이 없습니다.");
+            else Debug.Log("Error : 데이터 저장소의 응답이 없습니다.");
         }
     }
 

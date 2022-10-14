@@ -52,8 +52,6 @@ public class result_manager : MonoBehaviour
     #endregion
     private void Start()
     {
-        Debug.Log("Start CalStat");
-
         // set separate_stats
         Dictionary<string, int> separate_stat_1 = new Dictionary<string, int>()
         {

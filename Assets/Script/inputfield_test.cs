@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class inputfield_test : MonoBehaviour
 {
     public GameObject ContentView;
+    public GameObject ContentWindow;
     public RectTransform ItemParent;
     public RectTransform ItemPrefab;
     public string CheckMonsterName;
@@ -44,17 +45,23 @@ public class inputfield_test : MonoBehaviour
     }
     private void FillResults(List<string> results)
     {
+        RectTransform ContentWindowRect = ContentWindow.GetComponent<RectTransform>();
         RectTransform ContentViewRect = ContentView.GetComponent<RectTransform>();
         float max_height = 400f;
-        float cur_height = 40f;
+        float cur_height = 45f;
 
-        ContentViewRect.sizeDelta = new Vector2(ContentViewRect.sizeDelta.x, Mathf.Min(max_height, cur_height * results.Count));
+        if(results.Count != 0)
+        {
+            ContentWindowRect.sizeDelta = new Vector2(ContentWindowRect.sizeDelta.x, Mathf.Min(max_height, cur_height * results.Count));
+            ContentViewRect.sizeDelta = new Vector2(ContentViewRect.sizeDelta.x, Mathf.Min(max_height, cur_height * results.Count));
+        }
 
         for (int resultIndex = 0; resultIndex < results.Count; resultIndex++)
         {
             Transform child = Instantiate(ItemPrefab, ItemParent);
             child.GetComponentInChildren<Text>().text = results[resultIndex];
             child.SetParent(ItemParent);
+            child.localPosition = new Vector2(0f, -cur_height * resultIndex);
         }
     }
     private List<string> GetResults(string input)
