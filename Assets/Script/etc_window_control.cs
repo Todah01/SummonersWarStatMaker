@@ -11,7 +11,6 @@ public class etc_window_control : MonoBehaviour
     public GameObject etc_bg;
     public GameObject etc_notice;
     public GameObject word_bubble_in_stats;
-    public GameObject word_bubble_in_angel;
     public GameObject select_data;
     public GameObject loading_canvas;
 

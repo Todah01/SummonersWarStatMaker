@@ -23,7 +23,9 @@ public class select_data_control : MonoBehaviour
     public GameObject pirate;
     public GameObject word_bubble;
     public GameObject monster_name_drop;
-    
+    public GameObject word_bubble_in_angel;
+    public GameObject angel_mon;
+
     public List<int> rune_dropdown_values;
     public List<string> rune_type;
     public List<string> even_rune_stat_type;
@@ -159,6 +161,13 @@ public class select_data_control : MonoBehaviour
         yield return new WaitForSeconds(2f);
         loadingOn(false);
         result_ui.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        word_bubble_in_angel.SetActive(true);
+        angel_mon.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+        word_bubble_in_angel.SetActive(false);
     }
     IEnumerator ShakeEffect()
     {

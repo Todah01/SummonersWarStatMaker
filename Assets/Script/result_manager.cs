@@ -447,6 +447,12 @@ public class result_manager : MonoBehaviour
 
             Debug.Log(number + " Part 2. Calculate Ok");
 
+            if(number == 2)
+            {
+                foreach (var obj in temp_rune_info)
+                    Debug.Log(obj.Key + " : " + obj.Value);
+            }
+
             // rainforce count variable
             int rainforce_cnt = 0;
 
@@ -458,7 +464,7 @@ public class result_manager : MonoBehaviour
                 {
                     if (prefer_res && temp_rune_info.ContainsKey("RES"))
                     {
-                        if (cur_acc + plus_acc < min_res)
+                        if (cur_res + plus_res < min_res)
                             rainforce_stat = "RES";
                     }
                     else if (prefer_crirate && temp_rune_info.ContainsKey("CRI RATE"))
@@ -471,6 +477,7 @@ public class result_manager : MonoBehaviour
                         if (cur_acc + plus_acc < min_acc)
                             rainforce_stat = "ACC";
                     }
+                    else rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                 }
                 else rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
 
