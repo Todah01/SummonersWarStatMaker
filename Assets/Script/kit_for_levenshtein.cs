@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Kit.Extend
+namespace LevenKit.Extend
 {
     public static class StringExtend
     {

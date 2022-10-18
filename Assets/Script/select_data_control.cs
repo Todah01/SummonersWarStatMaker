@@ -54,7 +54,8 @@ public class select_data_control : MonoBehaviour
     }
     public void Cal_Start()
     {
-        string monster_name = monster_name_drop.GetComponent<inputfield_test>().CheckMonsterName;
+        string monster_name = monster_name_drop.GetComponent<Search_Algorithm>().CheckMonsterName.Trim();
+
         if (monster_name != "") check_monster = true;
 
         foreach (var obj in rune_slots)
@@ -166,7 +167,7 @@ public class select_data_control : MonoBehaviour
         word_bubble_in_angel.SetActive(true);
         angel_mon.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         word_bubble_in_angel.SetActive(false);
     }
     IEnumerator ShakeEffect()

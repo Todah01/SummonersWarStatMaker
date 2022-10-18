@@ -42,7 +42,7 @@ public class googlesheet_manager : MonoBehaviour
     {
         Debug.Log("Start GetValue");
 
-        monster_name = monster_input_name.GetComponent<inputfield_test>().CheckMonsterName;
+        monster_name = monster_input_name.GetComponent<Search_Algorithm>().CheckMonsterName;
         if (monster_name == "")
         {
             Debug.Log("Error : monster name is null");
@@ -84,6 +84,8 @@ public class googlesheet_manager : MonoBehaviour
         if (string.IsNullOrEmpty(json)) return;
 
         GD = JsonUtility.FromJson<GoogleData>(json);
+
+        Debug.Log(GD.hp + '\n' + GD.spd);
 
         hp = int.Parse(GD.hp);
         atk = int.Parse(GD.atk);

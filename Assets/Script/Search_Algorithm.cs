@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class inputfield_test : MonoBehaviour
+public class Search_Algorithm : MonoBehaviour
 {
     public GameObject ContentView;
     public GameObject ContentWindow;
@@ -24,8 +24,9 @@ public class inputfield_test : MonoBehaviour
         string monster_name_remove = "";
         for (int idx = 0; idx < name.Length; idx++)
         {
-            if (name[idx + 1] == '(' && name[idx] == ' ')
+            if (name[idx + 1] == '(')
                 break;
+
             monster_name_remove += name[idx];
         }
 
@@ -52,7 +53,7 @@ public class inputfield_test : MonoBehaviour
 
         if(results.Count != 0)
         {
-            ContentWindowRect.sizeDelta = new Vector2(ContentWindowRect.sizeDelta.x, Mathf.Min(max_height, cur_height * results.Count));
+            ContentWindowRect.sizeDelta = new Vector2(ContentWindowRect.sizeDelta.x, cur_height * results.Count);
             ContentViewRect.sizeDelta = new Vector2(ContentViewRect.sizeDelta.x, Mathf.Min(max_height, cur_height * results.Count));
         }
 
@@ -70,6 +71,8 @@ public class inputfield_test : MonoBehaviour
         List<string> mockData = new List<string>();
         List<string> resultData = new List<string>();
 
+        // List<string> mockData = new List<string>() { "Paris", "Seoul", "London", "Washinton", "Berlin" };
+
         for (int i = 0; i < monster_names.Count; i++)
         {
             mockData.Add(monster_names[i]["Name"].ToString());
@@ -77,23 +80,36 @@ public class inputfield_test : MonoBehaviour
         }
 
         levenshteinDistance = Mathf.Clamp01(levenshteinDistance);
-        string keywords = input.ToLower();
+        string keywords = input.ToLower().Replace(" ", "");
 
         for (int idx = 0; idx< mockData.Count; idx++)
         {
-            int mock_distance = Kit.Extend.StringExtend.LevenshteinDistance(mockData[idx].ToLower(), keywords, caseSensitive: false);
-            // int awaken_distance = Kit.Extend.StringExtend.LevenshteinDistance(awakenData[idx].ToLower(), keywords, caseSensitive: false);
+            #region levenshtein logic
+            //int mock_distance = LevenKit.Extend.StringExtend.LevenshteinDistance(mockData[idx].ToLower().Replace(" ", ""), keywords, caseSensitive: false);
+            //// int awaken_distance = Kit.Extend.StringExtend.LevenshteinDistance(awakenData[idx].ToLower(), keywords, caseSensitive: false);
 
-            // int distance = Math.Min(mock_distance, awaken_distance);
+            //// int distance = Math.Min(mock_distance, awaken_distance);
 
-            bool closeEnough = (int)(levenshteinDistance * mockData[idx].Length) > mock_distance;
+            //bool closeEnough = (int)(levenshteinDistance * mockData[idx].Length) > mock_distance;
 
-            //if(distance < mockData[idx].Length)
+            ////if(distance < mockData[idx].Length)
+            ////{
+            ////    resultData.Add(mockData[idx]);
+            ////    mockData.RemoveAt(idx);
+            ////    idx--;
+            ////}
+
+            //if (closeEnough)
             //{
             //    resultData.Add(mockData[idx]);
             //    mockData.RemoveAt(idx);
             //    idx--;
             //}
+            #endregion
+
+            #region lcs logic
+            int lcs_value = CommonKit.Extend.StringCommon.LongestCommonSubsequence(mockData[idx].ToLower().Replace(" ", ""), keywords);
+            bool closeEnough = lcs_value >= keywords.Length;
 
             if (closeEnough)
             {
@@ -101,6 +117,7 @@ public class inputfield_test : MonoBehaviour
                 mockData.RemoveAt(idx);
                 idx--;
             }
+            #endregion
         }
 
         return resultData;
