@@ -10,6 +10,7 @@ public class select_data_control : MonoBehaviour
     public GameObject[] rune_slots;
     public GameObject[] rune_previews;
     public GameObject[] rune_stats_prefer;
+    public GameObject[] rune_stats_prefer_recheck;
     public GameObject[] even_runes;
     public GameObject resultmanager;
     public GameObject btn_cal_start;
@@ -25,6 +26,9 @@ public class select_data_control : MonoBehaviour
     public GameObject monster_name_drop;
     public GameObject word_bubble_in_angel;
     public GameObject angel_mon;
+    public GameObject artifact_boxes;
+    public GameObject left_artifact_dropdown;
+    public GameObject right_artifact_dropdown;
 
     public List<int> rune_dropdown_values;
     public List<string> rune_type;
@@ -124,6 +128,29 @@ public class select_data_control : MonoBehaviour
         pirate.SetActive(false);
         etc_bg.SetActive(false);
         rune_check_window.SetActive(false);
+    }
+    public void ResetPreferStat()
+    {
+        prefer_stat_type.Clear();
+
+        foreach (var obj in rune_stats_prefer_recheck)
+        {
+            string cur_prefer_stat = obj.GetComponent<rune_stat_select_control>().stat_string;
+            if (cur_prefer_stat != "")
+                prefer_stat_type.Add(cur_prefer_stat);
+        }
+
+        if (prefer_stat_type.Count == prefer_stat_cnt)
+            check_prefer_stat = true;
+
+        resultmanager.GetComponent<result_manager>().OnClickReCalculateBtn();
+    }
+    public void Recalculate_Without_ResetPreferStat()
+    {
+        left_artifact_dropdown.GetComponent<artifact_dropdown_control>().ResetDropdown();
+        right_artifact_dropdown.GetComponent<artifact_dropdown_control>().ResetDropdown();
+        artifact_boxes.GetComponent<artifact_manager>().SetSpriteArtifact();
+        resultmanager.GetComponent<result_manager>().OnClickReCalculateBtn();
     }
     public void OnClickPirate()
     {

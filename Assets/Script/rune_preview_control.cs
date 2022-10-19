@@ -16,7 +16,7 @@ public class rune_preview_control : MonoBehaviour
     int[] preview_slot_info = new int[3] { 0, 0, 0 };
     string[] rune_set_data_txt;
     Sprite[] rune_set_data_sprite;
-    List<int> four_rune_set = new List<int>(){ 3, 9, 14, 17, 19, 20 };
+    List<int> four_rune_set = new List<int>() { 1, 3, 5, 6, 9, 14 };
     Dictionary<int, int> preview_counting = new Dictionary<int, int>()
     {
         { 1, 0 },

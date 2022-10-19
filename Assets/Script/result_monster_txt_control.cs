@@ -6,10 +6,15 @@ using UnityEngine.UI;
 public class result_monster_txt_control : MonoBehaviour
 {
     Color color;
-
     public void SetTextColorToRed()
     {
         ColorUtility.TryParseHtmlString("#F2582D", out color);
+        this.GetComponent<Text>().color = color;
+    }
+
+    public void SetTextColorToBase()
+    {
+        ColorUtility.TryParseHtmlString("#D5CAB1", out color);
         this.GetComponent<Text>().color = color;
     }
 }

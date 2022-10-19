@@ -24,7 +24,7 @@ public class rune_info_text_control : MonoBehaviour
         else if (stat_name.text == "Resistance")
         {
             ColorUtility.TryParseHtmlString("#FFFFFF", out color);
-            stat_amount.transform.localPosition = new Vector3(135f, 0f, this.transform.localPosition.z);
+            stat_amount.transform.localPosition = new Vector3(140f, 0f, this.transform.localPosition.z);
             stat_amount.color = color;
         }
         else

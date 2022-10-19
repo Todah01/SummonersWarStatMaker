@@ -144,13 +144,19 @@ public class result_manager : MonoBehaviour
         monster_stats_combine[0].text = (Mathf.Min(100, cur_crirate + plus_crirate)).ToString() + "%";
         if (cur_crirate + plus_crirate >= 100)
             txt_crirate.GetComponent<result_monster_txt_control>().SetTextColorToRed();
+        else
+            txt_crirate.GetComponent<result_monster_txt_control>().SetTextColorToBase();
         monster_stats_combine[1].text = (cur_cridmg + plus_cridmg).ToString() + "%";
         monster_stats_combine[2].text = (Mathf.Min(100, cur_res + plus_res)).ToString() + "%";
         if (cur_res + plus_res >= 100)
             txt_res.GetComponent<result_monster_txt_control>().SetTextColorToRed();
+        else
+            txt_res.GetComponent<result_monster_txt_control>().SetTextColorToBase();
         monster_stats_combine[3].text = (Mathf.Min(100, cur_acc + plus_acc)).ToString() + "%";
         if (cur_acc + plus_acc >= 100)
             txt_acc.GetComponent<result_monster_txt_control>().SetTextColorToRed();
+        else
+            txt_acc.GetComponent<result_monster_txt_control>().SetTextColorToBase();
     }
     void Cal_Stat(List<string> rune_type, List<string> even_rune_stat_type, List<string> prefer_stat_type, int hp, int atk, int def, int spd)
     {
