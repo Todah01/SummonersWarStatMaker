@@ -310,7 +310,7 @@ public class result_manager : MonoBehaviour
                     rune_stat_cnt += 1;
                     int pre_option_value = CalRainforceValue(stat_rainforce_value["RES"]);
                     temp_rune_info.Add("RES", pre_option_value);
-                }  
+                }
             }
         }
 
@@ -367,20 +367,20 @@ public class result_manager : MonoBehaviour
                 string rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                 int rainforce_value = CalRainforceValue(stat_rainforce_value[rainforce_stat]);
 
-                if(prefer_crirate && rainforce_stat == "CRI RATE" && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] < min_crirate)
-                    //&& cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
+                if (prefer_crirate && rainforce_stat == "CRI RATE" && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] < min_crirate)
+                    // && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
                 else if (prefer_acc && rainforce_stat == "ACC" && cur_acc + plus_acc + temp_rune_info[rainforce_stat] < min_acc)
-                    //&& cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
+                    // && cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
                 else if (prefer_res && rainforce_stat == "RES" && cur_res + plus_res + temp_rune_info[rainforce_stat] < min_res)
-                    //&& cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
+                    // && cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
@@ -453,11 +453,11 @@ public class result_manager : MonoBehaviour
 
             Debug.Log(number + " Part 2. Calculate Ok");
 
-            if(number == 2)
-            {
-                foreach (var obj in temp_rune_info)
-                    Debug.Log(obj.Key + " : " + obj.Value);
-            }
+            //if(number == 2)
+            //{
+            //    foreach (var obj in temp_rune_info)
+            //        Debug.Log(obj.Key + " : " + obj.Value);
+            //}
 
             // rainforce count variable
             int rainforce_cnt = 0;
@@ -470,18 +470,24 @@ public class result_manager : MonoBehaviour
                 {
                     if (prefer_res && temp_rune_info.ContainsKey("RES"))
                     {
-                        if (cur_res + plus_res < min_res)
+                        if (cur_res + plus_res + temp_rune_info["RES"] < min_res)
                             rainforce_stat = "RES";
+                        else
+                            rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                     }
                     else if (prefer_crirate && temp_rune_info.ContainsKey("CRI RATE"))
                     {
-                        if (cur_crirate + plus_crirate < min_crirate)
+                        if (cur_crirate + plus_crirate + temp_rune_info["CRI RATE"] < min_crirate)
                             rainforce_stat = "CRI RATE";
+                        else
+                            rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                     }
                     else if (prefer_acc && temp_rune_info.ContainsKey("ACC"))
                     {
-                        if (cur_acc + plus_acc < min_acc)
+                        if (cur_acc + plus_acc + temp_rune_info["ACC"] < min_acc)
                             rainforce_stat = "ACC";
+                        else
+                            rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                     }
                     else rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                 }
@@ -489,20 +495,23 @@ public class result_manager : MonoBehaviour
 
                 int rainforce_value = CalRainforceValue(stat_rainforce_value[rainforce_stat]);
 
+                //temp_rune_info[rainforce_stat] += rainforce_value;
+                //rainforce_cnt += 1;
+
                 if (prefer_crirate && rainforce_stat == "CRI RATE" && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] < min_crirate)
-                    //&& cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
+                // && cur_crirate + plus_crirate + temp_rune_info[rainforce_stat] + rainforce_value >= min_crirate)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
                 else if (prefer_acc && rainforce_stat == "ACC" && cur_acc + plus_acc + temp_rune_info[rainforce_stat] < min_acc)
-                    //&& cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
+                // && cur_acc + plus_acc + temp_rune_info[rainforce_stat] + rainforce_value >= min_acc)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;
                 }
                 else if (prefer_res && rainforce_stat == "RES" && cur_res + plus_res + temp_rune_info[rainforce_stat] < min_res)
-                    //&& cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
+                // && cur_res + plus_res + temp_rune_info[rainforce_stat] + rainforce_value >= min_res)
                 {
                     temp_rune_info[rainforce_stat] += rainforce_value;
                     rainforce_cnt += 1;

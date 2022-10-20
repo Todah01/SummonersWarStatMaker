@@ -99,6 +99,8 @@ public class select_data_control : MonoBehaviour
                 prefer_stat_type.Add(cur_prefer_stat);
         }
 
+        Debug.Log(prefer_stat_type.Count);
+
         if (prefer_stat_type.Count == prefer_stat_cnt)
             check_prefer_stat = true;
 

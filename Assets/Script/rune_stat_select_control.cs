@@ -18,7 +18,10 @@ public class rune_stat_select_control : MonoBehaviour
     {
         StatCheckFunction_UI(dropdown.value);
         stat_value = dropdown.value;
-        stat_string = dropdown.options[dropdown.value].text;
+        if (dropdown.options[dropdown.value].text != "* Select a stat *")
+            stat_string = dropdown.options[dropdown.value].text;
+        else
+            stat_string = "";
     }
 
     private void StatCheckFunction_UI(int stat_value)
