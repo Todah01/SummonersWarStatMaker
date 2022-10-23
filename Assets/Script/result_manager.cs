@@ -23,18 +23,23 @@ public class result_manager : MonoBehaviour
     public Text pre_option_stat;
     public Text first_rune_stat_name;
     public Text first_rune_stat_amount;
+    public GameObject first_rune_conversion_icon;
     public Text second_rune_stat_name;
     public Text second_rune_stat_amount;
+    public GameObject second_rune_conversion_icon;
     public Text third_rune_stat_name;
     public Text third_rune_stat_amount;
+    public GameObject third_rune_conversion_icon;
     public Text fourth_rune_stat_name;
     public Text fourth_rune_stat_amount;
+    public GameObject fourth_rune_conversion_icon;
     public Text[] monster_stats_divide;
     public Text[] monster_plus_stats_divide;
     public Text[] monster_stats_combine;
     public Sprite[] monster_profiles;
     public int left_artifact_dropdown_values = 0, right_artifact_dropdown_values = 0;
     public int cur_hp, cur_atk, cur_def, cur_spd, cur_crirate, cur_cridmg, cur_res, cur_acc;
+    public Dictionary<int, string> conversion_dict = new Dictionary<int, string>();
     #endregion
 
     #region Local Variable
@@ -129,6 +134,11 @@ public class result_manager : MonoBehaviour
                 break;
             }
         }
+
+        //foreach(var dict in conversion_dict)
+        //{
+        //    Debug.Log(dict.Key + " : " + dict.Value);
+        //}
 
         // set monster stat
         monster_stats_divide[0].text = cur_hp.ToString();
@@ -536,6 +546,9 @@ public class result_manager : MonoBehaviour
         else converstion_stat = CalConverstionStatFromRune(temp_rune_info, pre_option_on, "");
 
         int converstion_stat_value = CalConversionStatValue(converstion_stat);
+
+        conversion_dict.Add(number, converstion_stat);
+
         temp_rune_info[converstion_stat] = converstion_stat_value;
 
         // grinding rune stat
@@ -735,16 +748,19 @@ public class result_manager : MonoBehaviour
         bool ispreoption = false;
         pre_option_stat.gameObject.SetActive(false);
 
+        // check pre-option icon
         if (rune_stat_infos[rune_number].Count == 5)
         {
             ispreoption = true;
             pre_option_stat.gameObject.SetActive(true);
         }
 
+        // check stat of rune number and set stat in info box
         foreach (var dict in rune_stat_infos[rune_number])
         {
             string percentage = "";
 
+            // check pre option
             if (ispreoption)
             {
                 string description_key = dict.Key;
@@ -756,41 +772,58 @@ public class result_manager : MonoBehaviour
                 continue;
             }
 
+            // set first option
             if (order_number == 1)
             {
                 string description_key = dict.Key;
                 if (dict.Key == "ACC") description_key = "Accuracy";
                 else if (dict.Key == "RES") description_key = "Resistance";
 
+                if (conversion_dict[rune_number + 1] == dict.Key)
+                    first_rune_conversion_icon.SetActive(true);
+
                 first_rune_stat_name.text = description_key;
                 if (dict.Key != "SPD") percentage += "%";
                 first_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
+
             }
+            // set second option
             else if(order_number == 2)
             {
                 string description_key = dict.Key;
                 if (dict.Key == "ACC") description_key = "Accuracy";
                 else if (dict.Key == "RES") description_key = "Resistance";
 
+                if (conversion_dict[rune_number + 1] == dict.Key)
+                    second_rune_conversion_icon.SetActive(true);
+
                 second_rune_stat_name.text = description_key;
                 if (dict.Key != "SPD") percentage += "%";
                 second_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
             }
+            // set third option
             else if(order_number == 3)
             {
                 string description_key = dict.Key;
                 if (dict.Key == "ACC") description_key = "Accuracy";
                 else if (dict.Key == "RES") description_key = "Resistance";
 
+                if (conversion_dict[rune_number + 1] == dict.Key)
+                    third_rune_conversion_icon.SetActive(true);
+
                 third_rune_stat_name.text = description_key;
                 if (dict.Key != "SPD") percentage += "%";
                 third_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
             }
+            // set fourth option
             else if(order_number == 4)
             {
                 string description_key = dict.Key;
                 if (dict.Key == "ACC") description_key = "Accuracy";
                 else if (dict.Key == "RES") description_key = "Resistance";
+
+                if (conversion_dict[rune_number + 1] == dict.Key)
+                    fourth_rune_conversion_icon.SetActive(true);
 
                 fourth_rune_stat_name.text = description_key;
                 if (dict.Key != "SPD") percentage += "%";
@@ -815,6 +848,12 @@ public class result_manager : MonoBehaviour
                     Destroy(child[i].gameObject);
             }
         }
+
+        //disable conversion icon
+        first_rune_conversion_icon.SetActive(false);
+        second_rune_conversion_icon.SetActive(false);
+        third_rune_conversion_icon.SetActive(false);
+        fourth_rune_conversion_icon.SetActive(false);
     }
     // add artifact stat func
     public void AddArtifactStat(string dir, int value)
@@ -902,6 +941,7 @@ public class result_manager : MonoBehaviour
     public void ResetStat()
     {
         rune_stat_infos.Clear();
+        conversion_dict.Clear();
         plus_spd = 0;
         plus_atk = 0;
         plus_hp = 0;

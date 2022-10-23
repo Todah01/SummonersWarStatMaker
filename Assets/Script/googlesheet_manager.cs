@@ -85,8 +85,6 @@ public class googlesheet_manager : MonoBehaviour
 
         GD = JsonUtility.FromJson<GoogleData>(json);
 
-        Debug.Log(GD.hp + '\n' + GD.spd);
-
         hp = int.Parse(GD.hp);
         atk = int.Parse(GD.atk);
         def = int.Parse(GD.def);
