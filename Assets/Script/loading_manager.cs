@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 public class loading_manager : MonoBehaviour
 {
@@ -13,7 +14,11 @@ public class loading_manager : MonoBehaviour
     Animator irene_anim_controllor;
     bool isStart = false;
     bool isApply = false;
-
+    async void Start()
+    {
+        if (googleplay_manager.Instance != null)
+            await googleplay_manager.Instance.UpdateApp();
+    }
     private void Awake()
     {
         irene_anim_controllor = irene_animation.GetComponent<Animator>();
