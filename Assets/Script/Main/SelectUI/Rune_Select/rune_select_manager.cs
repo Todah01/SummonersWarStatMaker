@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class select_manager : MonoBehaviour
+public class rune_select_manager : MonoBehaviour
 {
     #region Public Variable
     public GameObject rune_set_ui;
@@ -31,21 +31,26 @@ public class select_manager : MonoBehaviour
     public void RuneSlotClick(int number)
     {
         cur_rune_number = number;
-
+        
+        // Disable stat dropdown if rune number is odd number.
         if (cur_rune_number % 2 == 1) rune_stat_dropdown.interactable = false;
         else rune_stat_dropdown.interactable = true;
 
+        // Open background and rune set ui.
         etc_BG.SetActive(true);
         rune_set_ui.SetActive(true);
-        rune_number.text = "Rune Number " + number.ToString();
+        rune_number.text = "Rune Number " + cur_rune_number.ToString();
 
-        object[] rune_numbers = new object[3];
-        rune_numbers[0] = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value;
-        rune_numbers[1] = cur_rune_number;
-        rune_numbers[2] = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_stat_value;
+        // Fill rune infos in object for send info to others.
+        object[] rune_infos = new object[3];
+        rune_infos[0] = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value;
+        rune_infos[1] = cur_rune_number;
+        rune_infos[2] = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_stat_value;
 
-        gameObject.BroadcastMessage("SetFunction_UI", rune_numbers);
+        gameObject.BroadcastMessage("SetFunction_UI", rune_infos);
     }
+
+    // Activate when rune set is change.
     private void Rune_Set_Change(object[] parameters)
     {
         int before_dropdown_value = 0;
@@ -62,15 +67,15 @@ public class select_manager : MonoBehaviour
 
             gameObject.BroadcastMessage("Rune_Set_Setting", dropdown_values);
 
-            // Rune Statue Clear
+            // Clear rune statue.
             cur_rune_status[cur_rune_number - 1] = "";
 
-            // Rune image Alpha Clear
+            // Clear rune image alpha value.
             Color slot_color = rune_slots[cur_rune_number - 1].GetComponent<Image>().color;
             slot_color.a = 0f;
             rune_slots[cur_rune_number - 1].GetComponent<Image>().color = slot_color;
 
-            // Rune pattern Clear
+            // Clear rune pattern.
             Sprite slot_pattern = rune_img[cur_rune_number - 1].GetComponent<Image>().sprite;
             slot_pattern = (Sprite)parameters[1];
             rune_img[cur_rune_number - 1].GetComponent<Image>().sprite = slot_pattern;
@@ -107,12 +112,13 @@ public class select_manager : MonoBehaviour
                 // Rune Statue Setting
                 cur_rune_status[cur_rune_number - 1] = (string)parameters[0];
             }
-            // Rune image Alpha Change
+
+            // Change rune image alpha.
             Color slot_color = rune_slots[cur_rune_number - 1].GetComponent<Image>().color;
             slot_color.a = 1f;
             rune_slots[cur_rune_number - 1].GetComponent<Image>().color = slot_color;
 
-            // Rune pattern Change
+            // Change rune pattern change.
             Sprite slot_pattern = rune_img[cur_rune_number - 1].GetComponent<Image>().sprite;
             slot_pattern = (Sprite)parameters[1];
             rune_img[cur_rune_number - 1].GetComponent<Image>().sprite = slot_pattern;

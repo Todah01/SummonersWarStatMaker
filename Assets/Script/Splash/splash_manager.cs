@@ -6,23 +6,31 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 
-public class loading_manager : MonoBehaviour
+public class splash_manager : MonoBehaviour
 {
+    #region Public Variable
     public GameObject irene_animation;
     public GameObject profile_animation;
+    #endregion
 
+    #region Local Variable
     Animator irene_anim_controllor;
     bool isStart = false;
     bool isApply = false;
+    #endregion
+
+    private void Awake()
+    {
+        // Get irene animation controllor from irene
+        irene_anim_controllor = irene_animation.GetComponent<Animator>();
+    }
     async void Start()
     {
+        // check app update from google play store
         if (googleplay_manager.Instance != null)
             await googleplay_manager.Instance.UpdateApp();
     }
-    private void Awake()
-    {
-        irene_anim_controllor = irene_animation.GetComponent<Animator>();
-    }
+    // Set irene animation time
     public void OnClickIrene()
     {
         if (!isApply) return;
@@ -33,6 +41,13 @@ public class loading_manager : MonoBehaviour
         irene_anim_controllor.SetTrigger("IsMotion");
         StartCoroutine(GoToMain());
     }
+    IEnumerator GoToMain()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Select");
+    }
+
+    #region Splash image Control
     public void OffProfile()
     {
         profile_animation.SetActive(false);
@@ -41,9 +56,5 @@ public class loading_manager : MonoBehaviour
     {
         isApply = true;
     }
-    IEnumerator GoToMain()
-    {
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Select");
-    }
+    #endregion
 }

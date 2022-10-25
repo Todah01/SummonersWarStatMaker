@@ -42,7 +42,7 @@ public class googlesheet_manager : MonoBehaviour
     {
         Debug.Log("Start GetValue");
 
-        monster_name = monster_input_name.GetComponent<Search_Algorithm>().CheckMonsterName;
+        monster_name = monster_input_name.GetComponent<search_inputfield_control>().CheckMonsterName;
         if (monster_name == "")
         {
             Debug.Log("Error : monster name is null");

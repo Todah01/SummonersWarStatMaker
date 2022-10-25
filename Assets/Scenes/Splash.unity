@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 387177600}
   - component: {fileID: 387177599}
   m_Layer: 0
-  m_Name: LoadingCamera
+  m_Name: SplashCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 493122488}
   - component: {fileID: 493122489}
   m_Layer: 0
-  m_Name: LoadingManager
+  m_Name: SplashManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

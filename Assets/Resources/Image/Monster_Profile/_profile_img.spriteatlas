@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1_profile_img
+  m_Name: _profile_img
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -2104,5 +2104,5 @@ SpriteAtlas:
   - Talc-Water
   - Zeratu_Icon
   - Tyron_Icon
-  m_Tag: 1_profile_img
+  m_Tag: _profile_img
   m_IsVariant: 0

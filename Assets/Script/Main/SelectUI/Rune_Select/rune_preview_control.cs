@@ -13,6 +13,7 @@ public class rune_preview_control : MonoBehaviour
     public Text[] preview_txt;
     #endregion
 
+    #region Local Variable
     int[] preview_slot_info = new int[3] { 0, 0, 0 };
     string[] rune_set_data_txt;
     Sprite[] rune_set_data_sprite;
@@ -41,6 +42,8 @@ public class rune_preview_control : MonoBehaviour
         { 20, 0 },
         { 21, 0 },
     };
+    #endregion
+
     private void Start()
     {
         rune_set_data_sprite = rune_set_data.GetComponent<rune_set_dropdown_control>().sprites;
@@ -48,8 +51,6 @@ public class rune_preview_control : MonoBehaviour
     }
     void Check_Available_Rune_Set(int dropdown_value)
     {
-        // Debug.Log(dropdown_value + ":" + preview_counting[dropdown_value]);
-        
         int empty_cnt = 0;
         for (int i = 0; i < preview_slot_info.Length; i++)
             if (preview_slot_info[i] == dropdown_value)

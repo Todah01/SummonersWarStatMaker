@@ -58,7 +58,7 @@ public class select_data_control : MonoBehaviour
     }
     public void Cal_Start()
     {
-        string monster_name = monster_name_drop.GetComponent<Search_Algorithm>().CheckMonsterName.Trim();
+        string monster_name = monster_name_drop.GetComponent<search_inputfield_control>().CheckMonsterName.Trim();
 
         if (monster_name != "") check_monster = true;
 
