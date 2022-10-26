@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class rune_box_control : MonoBehaviour
+public class rune_set_effect_box_control : MonoBehaviour
 {
     #region Public Variable
     public GameObject selected_data;
@@ -24,9 +23,11 @@ public class rune_box_control : MonoBehaviour
     }
     private void Start()
     {
+        // Get rune set data from user selected data.
         List<int> rune_dropdown_values = selected_data.GetComponent<select_data_control>().rune_dropdown_values;
         List<string> rune_seteffects_titles = selected_data.GetComponent<select_data_control>().rune_type;
         
+        // Set rune set img color.
         for(int i=0; i<rune_imgs.Length; i++)
         {
             rune_imgs[i].sprite = rune_sprites[rune_dropdown_values[i]];
@@ -35,6 +36,7 @@ public class rune_box_control : MonoBehaviour
             rune_imgs[i].GetComponent<Image>().color = rune_img_color;
         }
 
+        // Set rune set img.
         for(int i=0; i< rune_seteffects_titles.Count; i++)
         {
             int rune_seteffect = Array.IndexOf(rune_names, rune_seteffects_titles[i]);

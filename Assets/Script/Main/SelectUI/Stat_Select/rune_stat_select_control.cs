@@ -5,14 +5,20 @@ using UnityEngine.UI;
 
 public class rune_stat_select_control : MonoBehaviour
 {
-    public Dropdown dropdown;
+    #region Public Variable
     public string[] op_title;
     public int stat_value = 0;
     public string stat_string;
+    #endregion
+
+    #region Local Variable
+    Dropdown dropdown;
+    #endregion
 
     private void Awake()
     {
         StatCheckFunction_UI(0);
+        dropdown = this.GetComponent<Dropdown>();
     }
     public void Function_Dropdown()
     {

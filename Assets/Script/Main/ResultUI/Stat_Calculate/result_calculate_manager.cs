@@ -4,42 +4,15 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class result_manager : MonoBehaviour
+public class result_calculate_manager : MonoBehaviour
 {
     #region Public Variable
     public GameObject etc_window_control;
     public GameObject selected_data;
-    public GameObject rune_info;
-    public GameObject[] rune_info_datas;
     public GameObject GoogleDataManager;
-    public GameObject txt_crirate;
-    public GameObject txt_res;
-    public GameObject txt_acc;
-    public Image rune_img_slot;
-    public Image rune_img_pattern;
-    public Image monster_profile;
-    public Text monster_name_txt;
-    public Text rune_stat_name;
-    public Text pre_option_stat;
-    public Text first_rune_stat_name;
-    public Text first_rune_stat_amount;
-    public GameObject first_rune_conversion_icon;
-    public Text second_rune_stat_name;
-    public Text second_rune_stat_amount;
-    public GameObject second_rune_conversion_icon;
-    public Text third_rune_stat_name;
-    public Text third_rune_stat_amount;
-    public GameObject third_rune_conversion_icon;
-    public Text fourth_rune_stat_name;
-    public Text fourth_rune_stat_amount;
-    public GameObject fourth_rune_conversion_icon;
-    public Text[] monster_stats_divide;
-    public Text[] monster_plus_stats_divide;
-    public Text[] monster_stats_combine;
-    public Sprite[] monster_profiles;
-    public int left_artifact_dropdown_values = 0, right_artifact_dropdown_values = 0;
-    public int cur_hp, cur_atk, cur_def, cur_spd, cur_crirate, cur_cridmg, cur_res, cur_acc;
+    public List<int> divide_stats_cur, divide_stats_plus, comp_stats;
     public Dictionary<int, string> conversion_dict = new Dictionary<int, string>();
+    public List<Dictionary<string, int>> rune_stat_infos = new List<Dictionary<string, int>>();
     #endregion
 
     #region Local Variable
@@ -48,14 +21,14 @@ public class result_manager : MonoBehaviour
         {"SPD", 6}, {"HP", 8}, {"ATK", 8}, {"DEF", 8}, {"CRI RATE", 6}, {"CRI DMG", 7}, {"ACC", 8}, {"RES", 8}
     };
     List<Dictionary<string, int>> separate_stats = new List<Dictionary<string, int>>();
-    List<Dictionary<string, int>> rune_stat_infos = new List<Dictionary<string, int>>();
     List<string> rune_type;
     List<string> even_rune_stat_type;
     List<string> prefer_stat_type;
+    int cur_hp, cur_atk, cur_def, cur_spd, cur_crirate, cur_cridmg, cur_res, cur_acc;
     int plus_hp, plus_atk, plus_def, plus_spd, plus_crirate, plus_cridmg, plus_res, plus_acc;
-    string monster_name = "";
     #endregion
-    private void Start()
+
+    private void Awake()
     {
         // set separate_stats
         Dictionary<string, int> separate_stat_1 = new Dictionary<string, int>()
@@ -82,6 +55,7 @@ public class result_manager : MonoBehaviour
         {
             {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}
         };
+        
         separate_stats.Add(separate_stat_1);
         separate_stats.Add(separate_stat_2);
         separate_stats.Add(separate_stat_3);
@@ -91,14 +65,15 @@ public class result_manager : MonoBehaviour
     }
     public void Start_StatSetting()
     {
+        #region Get selected data
         // get selected data
-        monster_name = selected_data.GetComponent<select_data_control>().selected_monster.text;
         rune_type = selected_data.GetComponent<select_data_control>().rune_type;
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         prefer_stat_type = selected_data.GetComponent<select_data_control>().prefer_stat_type;
+        #endregion
 
+        #region Get stat data from DB.
         // get basic monster stat data
-        monster_name_txt.text = monster_name;
         cur_hp = GoogleDataManager.GetComponent<googlesheet_manager>().hp;
         cur_atk = GoogleDataManager.GetComponent<googlesheet_manager>().atk;
         cur_def = GoogleDataManager.GetComponent<googlesheet_manager>().def;
@@ -107,9 +82,11 @@ public class result_manager : MonoBehaviour
         cur_cridmg = GoogleDataManager.GetComponent<googlesheet_manager>().cridmg;
         cur_res = GoogleDataManager.GetComponent<googlesheet_manager>().res;
         cur_acc = GoogleDataManager.GetComponent<googlesheet_manager>().acc;
+        #endregion
 
+        #region Check rune set effect to stat.
         // add rune set effect stat
-        for(int i=0; i<rune_type.Count; i++)
+        for (int i=0; i<rune_type.Count; i++)
         {
             if (rune_type[i] == "Swift") plus_spd += Mathf.RoundToInt(cur_spd * 0.25f);
             else if (rune_type[i] == "Blade") plus_crirate += 12;
@@ -120,54 +97,33 @@ public class result_manager : MonoBehaviour
             else if (rune_type[i] == "Guard") plus_def += Mathf.RoundToInt(cur_def * 0.15f);
             else if (rune_type[i] == "Rage") plus_cridmg += 40;
         }
+        #endregion
 
-        // cal monster stat
+        // Calculate monster stat by swsm logic.
         Cal_Stat(rune_type, even_rune_stat_type, prefer_stat_type, cur_hp, cur_atk, cur_def, cur_spd);
 
-        // set monster profile
-        string moneter_name_tolower = monster_name.ToLower();
-        for (int i=0; i<monster_profiles.Length; i++)
-        {
-            if (monster_profiles[i].name.ToLower().Contains(moneter_name_tolower))
-            {
-                monster_profile.sprite = monster_profiles[i];
-                break;
-            }
-        }
+        #region Save stat after calculate.
+        // save monster stat
+        divide_stats_cur.Add(cur_spd);
+        divide_stats_cur.Add(cur_atk);
+        divide_stats_cur.Add(cur_def);
+        divide_stats_cur.Add(cur_spd);
 
-        //foreach(var dict in conversion_dict)
-        //{
-        //    Debug.Log(dict.Key + " : " + dict.Value);
-        //}
+        divide_stats_plus.Add(plus_hp);
+        divide_stats_plus.Add(plus_atk);
+        divide_stats_plus.Add(plus_def);
+        divide_stats_plus.Add(plus_spd);
 
-        // set monster stat
-        monster_stats_divide[0].text = cur_hp.ToString();
-        monster_stats_divide[1].text = cur_atk.ToString();
-        monster_stats_divide[2].text = cur_def.ToString();
-        monster_stats_divide[3].text = cur_spd.ToString();
+        comp_stats.Add(Mathf.Min(100, cur_crirate + plus_crirate));
+        comp_stats.Add(cur_cridmg + plus_cridmg);
+        comp_stats.Add(Mathf.Min(100, cur_res + plus_res));
+        comp_stats.Add(Mathf.Min(100, cur_acc + plus_acc));
+        #endregion
 
-        monster_plus_stats_divide[0].text = plus_hp.ToString();
-        monster_plus_stats_divide[1].text = plus_atk.ToString();
-        monster_plus_stats_divide[2].text = plus_def.ToString();
-        monster_plus_stats_divide[3].text = plus_spd.ToString();
-
-        monster_stats_combine[0].text = (Mathf.Min(100, cur_crirate + plus_crirate)).ToString() + "%";
-        if (cur_crirate + plus_crirate >= 100)
-            txt_crirate.GetComponent<result_monster_txt_control>().SetTextColorToRed();
-        else
-            txt_crirate.GetComponent<result_monster_txt_control>().SetTextColorToBase();
-        monster_stats_combine[1].text = (cur_cridmg + plus_cridmg).ToString() + "%";
-        monster_stats_combine[2].text = (Mathf.Min(100, cur_res + plus_res)).ToString() + "%";
-        if (cur_res + plus_res >= 100)
-            txt_res.GetComponent<result_monster_txt_control>().SetTextColorToRed();
-        else
-            txt_res.GetComponent<result_monster_txt_control>().SetTextColorToBase();
-        monster_stats_combine[3].text = (Mathf.Min(100, cur_acc + plus_acc)).ToString() + "%";
-        if (cur_acc + plus_acc >= 100)
-            txt_acc.GetComponent<result_monster_txt_control>().SetTextColorToRed();
-        else
-            txt_acc.GetComponent<result_monster_txt_control>().SetTextColorToBase();
+        // Send signal to result_ui_manager.
+        this.gameObject.BroadcastMessage("Set_data_to_result_ui");
     }
+    // Calculate monster stat data based on swsm logic.
     void Cal_Stat(List<string> rune_type, List<string> even_rune_stat_type, List<string> prefer_stat_type, int hp, int atk, int def, int spd)
     {
         // repeat 6 times
@@ -199,7 +155,7 @@ public class result_manager : MonoBehaviour
             }
         }
     }
-
+    // Check even rune stat.
     void CheckEvenRuneStat(int number)
     {
         if (number == 2)
@@ -227,14 +183,13 @@ public class result_manager : MonoBehaviour
             else if (even_rune_stat_type[2] == "DEF") plus_def += Mathf.RoundToInt((float)cur_def * 0.63f);
             else if (even_rune_stat_type[2] == "RES") plus_res += 64;
             else if (even_rune_stat_type[2] == "ACC") plus_acc += 64;
-            
             CalStatFromPreferStat(number);
         }
     }
-
+    // Calculate stat based on selected prefer stats.
     void CalStatFromPreferStat(int number)
     {
-        #region set scoreboard
+        #region Set rune stat scoreboard
         Dictionary<string, int> stat_scoreboard = separate_stats[number - 1];
         // get rune data from seleted data
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
@@ -250,9 +205,12 @@ public class result_manager : MonoBehaviour
 
         // sort stat_scoreboard by value
         stat_scoreboard.OrderByDescending(item => item.Key).ToDictionary(x => x.Key, x => x.Value);
+
+        // Set temporary dictionary for save rune info
+        Dictionary<string, int> temp_rune_info = new Dictionary<string, int>();
         #endregion
 
-        #region min_stat_demand
+        #region Variable to limit stat that don't spill over target stat.
         int min_crirate = 0;
         int min_acc = 0;
         int min_res = 0;
@@ -264,6 +222,7 @@ public class result_manager : MonoBehaviour
         bool prefer_res = false;
         #endregion
 
+        #region Set target stat based on selected prefer stats.
         // check prefer stat and set minimum stat
         for (int i = 0; i < prefer_stat_type.Count; i++)
         {
@@ -289,14 +248,14 @@ public class result_manager : MonoBehaviour
                     break;
             }
         }
+        #endregion
 
-        // temp dict for save rune info
-        Dictionary<string, int> temp_rune_info = new Dictionary<string, int>();
-
+        #region Set pre_option stat.
+        // Set percentage if rune has pre-option or not.
         int pre_option_percentage = Random.Range(1, 101);
         if (pre_option_percentage > 31) pre_option_possible = true;
-
-        // set pre-option
+        
+        // Set pre-option
         if (number != 2 && prefer_acc && pre_option_possible)
         {
             if (!temp_rune_info.ContainsKey("ACC"))
@@ -323,7 +282,9 @@ public class result_manager : MonoBehaviour
                 }
             }
         }
+        #endregion
 
+        #region Calculate odd number rune.
         // if rune number is odd number, just add stat to rune.
         if (number % 2 == 1)
         {
@@ -409,6 +370,9 @@ public class result_manager : MonoBehaviour
             Debug.Log(number + " Part 3. Calculate Ok");
 
         }
+        #endregion
+
+        #region Calculate even number rune.
         // if rune number is even number, check even number main stat before add stat to rune.
         else
         {
@@ -539,18 +503,21 @@ public class result_manager : MonoBehaviour
 
             Debug.Log(number + " Part 3. Calculate Ok");
         }
+        #endregion
 
+        #region Conversion rune stat after rainforce.
         // conversion rune stat
         string converstion_stat;
-        if(pre_option_on) converstion_stat = CalConverstionStatFromRune(temp_rune_info, pre_option_on, temp_rune_info.Keys.ToList()[0]);
-        else converstion_stat = CalConverstionStatFromRune(temp_rune_info, pre_option_on, "");
+        if(pre_option_on) converstion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, temp_rune_info.Keys.ToList()[0]);
+        else converstion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, "");
 
         int converstion_stat_value = CalConversionStatValue(converstion_stat);
 
         conversion_dict.Add(number, converstion_stat);
-
         temp_rune_info[converstion_stat] = converstion_stat_value;
+        #endregion
 
+        #region Grinding stats of rune.
         // grinding rune stat
         for (int i = 0; i < temp_rune_info.Count; i++)
         {
@@ -563,7 +530,9 @@ public class result_manager : MonoBehaviour
                 temp_rune_info[temp_rune_info.Keys.ToList()[i]] += 5;
             }
         }
+        #endregion
 
+        #region Add calculated stat to plus stat.
         // calculate plus stat from current stat
         foreach (var dict in temp_rune_info)
         {
@@ -576,23 +545,13 @@ public class result_manager : MonoBehaviour
             else if (dict.Key == "RES") plus_res += dict.Value;
             else if (dict.Key == "ACC") plus_acc += dict.Value;
         }
+        #endregion
 
-        //Debug.Log("rune " + number);
-        //foreach (var dict in temp_rune_info)
-        //{
-        //    Debug.Log(dict.Key + " : " + dict.Value);
-        //}
-
-        // add stat to rune_stat_infos
+        // Add rune stat infomation to dictionary.
         rune_stat_infos.Add(temp_rune_info);
     }
-    int CalRainforceValue(int rainforce_value)
-    {
-        int percentage = Random.Range(1, 100);
-        if (percentage > 0 && percentage <= 5) return rainforce_value -= 2;
-        else if (percentage > 5 && percentage <= 30) return rainforce_value -= 1;
-        else return rainforce_value;
-    }
+
+    // Set rainforce stat based on stat type and percentage.
     string CalRainforceStatNumber(Dictionary<string, int> rainforce_stat_dict, bool pre_option_check)
     {
         List<string> temp = new List<string>(rainforce_stat_dict.Keys);
@@ -614,7 +573,16 @@ public class result_manager : MonoBehaviour
             else return temp[0];
         }
     }
-    string CalConverstionStatFromRune(Dictionary<string, int> conversion_stat_dict, bool pre_option_check, string pre_option_stat)
+    // Set rainforce stat value based on stat type and percentage.
+    int CalRainforceValue(int rainforce_value)
+    {
+        int percentage = Random.Range(1, 100);
+        if (percentage > 0 && percentage <= 5) return rainforce_value -= 2;
+        else if (percentage > 5 && percentage <= 30) return rainforce_value -= 1;
+        else return rainforce_value;
+    }
+    // Set conversion stat based on swsm logic.
+    string CalConversionStatFromRune(Dictionary<string, int> conversion_stat_dict, bool pre_option_check, string pre_option_stat)
     {
         string check_stat = "";
         int check_max_value = -1;
@@ -659,6 +627,7 @@ public class result_manager : MonoBehaviour
         }
         return check_stat;
     }
+    // Set conversion stat value based on summoners war data.
     int CalConversionStatValue(string conversion_stat)
     {
         int conversion_value = 0;
@@ -673,271 +642,8 @@ public class result_manager : MonoBehaviour
 
         return conversion_value;
     }
-
-    // open rune window
-    public void OnRuneClick(int i)
-    {
-        // get rune data from seleted data.
-        even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
-        // get rune img from rune box.
-        switch (i)
-        {
-            case 0:
-                rune_stat_name.text = "ATK + 160";
-                SettingRuneStat(i);
-                break;
-            case 1:
-                if (even_rune_stat_type[0] == "SPD")
-                {
-                    rune_stat_name.text = even_rune_stat_type[0] + " + 42";
-                }
-                else
-                {
-                    rune_stat_name.text = even_rune_stat_type[0] + " + 63%";
-                }
-                SettingRuneStat(i);
-                break;
-            case 2:
-                rune_stat_name.text = "DEF + 160";
-                SettingRuneStat(i);
-                break;
-            case 3:
-                if (even_rune_stat_type[1] == "CRI RATE")
-                {
-                    rune_stat_name.text = even_rune_stat_type[1] + " + 58%";
-                }
-                else if (even_rune_stat_type[1] == "CRI DMG")
-                {
-                    rune_stat_name.text = even_rune_stat_type[1] + " + 80%";
-                }
-                else
-                {
-                    rune_stat_name.text = even_rune_stat_type[1] + " + 63%";
-                }
-                SettingRuneStat(i);
-                break;
-            case 4:
-                rune_stat_name.text = "HP + 2448";
-                SettingRuneStat(i);
-                break;
-            case 5:
-                if (even_rune_stat_type[2] == "RES")
-                {
-                    rune_stat_name.text = even_rune_stat_type[2] + " + 64%";
-                }
-                else if (even_rune_stat_type[1] == "ACC")
-                {
-                    rune_stat_name.text = even_rune_stat_type[2] + " + 64%";
-                }
-                else
-                {
-                    rune_stat_name.text = even_rune_stat_type[2] + " + 63%";
-                }
-                SettingRuneStat(i);
-                break;
-        }
-        // instantiate rune_img
-        Transform temp = Instantiate(rune_info_datas[i].transform.Find($"rune ({i + 1})"), rune_img_slot.transform.position, rune_img_slot.transform.rotation);
-        temp.transform.SetParent(rune_img_slot.transform);
-        temp.localScale = rune_img_slot.transform.localScale;
-        rune_info.SetActive(true);
-    }
-    void SettingRuneStat(int rune_number)
-    {
-        int order_number = 1;
-        bool ispreoption = false;
-        pre_option_stat.gameObject.SetActive(false);
-
-        // check pre-option icon
-        if (rune_stat_infos[rune_number].Count == 5)
-        {
-            ispreoption = true;
-            pre_option_stat.gameObject.SetActive(true);
-        }
-
-        // check stat of rune number and set stat in info box
-        foreach (var dict in rune_stat_infos[rune_number])
-        {
-            string percentage = "";
-
-            // check pre option
-            if (ispreoption)
-            {
-                string description_key = dict.Key;
-                if (dict.Key == "ACC") description_key = "Accuracy";
-                else if (dict.Key == "RES") description_key = "Resistance";
-
-                pre_option_stat.text = description_key + " + " + dict.Value.ToString() + "%";
-                ispreoption = false;
-                continue;
-            }
-
-            // set first option
-            if (order_number == 1)
-            {
-                string description_key = dict.Key;
-                if (dict.Key == "ACC") description_key = "Accuracy";
-                else if (dict.Key == "RES") description_key = "Resistance";
-
-                if (conversion_dict[rune_number + 1] == dict.Key)
-                    first_rune_conversion_icon.SetActive(true);
-
-                first_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
-                first_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
-
-            }
-            // set second option
-            else if(order_number == 2)
-            {
-                string description_key = dict.Key;
-                if (dict.Key == "ACC") description_key = "Accuracy";
-                else if (dict.Key == "RES") description_key = "Resistance";
-
-                if (conversion_dict[rune_number + 1] == dict.Key)
-                    second_rune_conversion_icon.SetActive(true);
-
-                second_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
-                second_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
-            }
-            // set third option
-            else if(order_number == 3)
-            {
-                string description_key = dict.Key;
-                if (dict.Key == "ACC") description_key = "Accuracy";
-                else if (dict.Key == "RES") description_key = "Resistance";
-
-                if (conversion_dict[rune_number + 1] == dict.Key)
-                    third_rune_conversion_icon.SetActive(true);
-
-                third_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
-                third_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
-            }
-            // set fourth option
-            else if(order_number == 4)
-            {
-                string description_key = dict.Key;
-                if (dict.Key == "ACC") description_key = "Accuracy";
-                else if (dict.Key == "RES") description_key = "Resistance";
-
-                if (conversion_dict[rune_number + 1] == dict.Key)
-                    fourth_rune_conversion_icon.SetActive(true);
-
-                fourth_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
-                fourth_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
-            }
-
-            order_number++;
-        }
-    }
-    // close rune window
-    public void OnRuneClose()
-    {
-        rune_info.SetActive(false);
-
-        // delete child
-        Transform[] child = rune_img_slot.GetComponentsInChildren<Transform>();
-        if (child != null)
-        {
-            for (int i = 1; i < child.Length; i++)
-            {
-                if (child[i] != rune_img_slot.transform)
-                    Destroy(child[i].gameObject);
-            }
-        }
-
-        //disable conversion icon
-        first_rune_conversion_icon.SetActive(false);
-        second_rune_conversion_icon.SetActive(false);
-        third_rune_conversion_icon.SetActive(false);
-        fourth_rune_conversion_icon.SetActive(false);
-    }
-    // add artifact stat func
-    public void AddArtifactStat(string dir, int value)
-    {
-        // check artifact type
-        if(dir == "left")
-        {
-            // clear cur artifact stat and reset plus stat
-            if (left_artifact_dropdown_values == 1)
-            {
-                plus_atk -= 100;
-            }
-            else if (left_artifact_dropdown_values == 2)
-            { 
-                plus_def -= 100;
-            }
-            else if (left_artifact_dropdown_values == 3)
-            {
-                plus_hp -= 1500;
-            }
-
-            // reset artifact stat
-            left_artifact_dropdown_values = 0;
-
-            // add artifact stat to plus stat
-            if (value == 1)
-            {
-                plus_atk += 100;
-                left_artifact_dropdown_values = 1;
-            }
-            else if (value == 2)
-            {
-                plus_def += 100;
-                left_artifact_dropdown_values = 2;
-            }
-            else if (value == 3)
-            {
-                plus_hp += 1500;
-                left_artifact_dropdown_values = 3;
-            }
-        }
-        // check artifact type
-        else if (dir == "right")
-        {
-            // clear cur artifact stat and reset plus stat
-            if (right_artifact_dropdown_values == 1)
-            {
-                plus_atk -= 100;
-            }
-            else if (right_artifact_dropdown_values == 2)
-            {
-                plus_def -= 100;
-            }
-            else if (right_artifact_dropdown_values == 3)
-            {
-                plus_hp -= 1500;
-            }
-
-            // reset artifact stat
-            right_artifact_dropdown_values = 0;
-
-            // add artifact stat to plus stat
-            if (value == 1)
-            {
-                plus_atk += 100;
-                right_artifact_dropdown_values = 1;
-            }
-            else if (value == 2)
-            {
-                plus_def += 100;
-                right_artifact_dropdown_values = 2;
-            }
-            else if (value == 3)
-            {
-                plus_hp += 1500;
-                right_artifact_dropdown_values = 3;
-            }
-        }
-
-        monster_plus_stats_divide[1].text = plus_atk.ToString();
-        monster_plus_stats_divide[2].text = plus_def.ToString();
-        monster_plus_stats_divide[0].text = plus_hp.ToString();
-    }
-    // reset plus stat and artifact stat
+    
+    // Reset data to need calculating.
     public void ResetStat()
     {
         rune_stat_infos.Clear();
@@ -950,8 +656,6 @@ public class result_manager : MonoBehaviour
         plus_def = 0;
         plus_res = 0;
         plus_acc = 0;
-        right_artifact_dropdown_values = 0;
-        left_artifact_dropdown_values = 0;
     }
     // Recalculate Stat
     public void OnClickReCalculateBtn()
