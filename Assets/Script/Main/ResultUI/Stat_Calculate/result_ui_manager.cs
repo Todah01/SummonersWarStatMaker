@@ -42,6 +42,25 @@ public class result_ui_manager : MonoBehaviour
         plus_monster_stats = result_calculate_manager.GetComponent<result_calculate_manager>().divide_stats_plus;
         comp_monster_stats = result_calculate_manager.GetComponent<result_calculate_manager>().comp_stats;
 
+        // Set monster stats.
+        for(int idx = 0; idx<base_monster_stats_txt.Length; idx++)
+            base_monster_stats_txt[idx].text = base_monster_stats[idx].ToString();
 
+        for (int idx = 0; idx < plus_monster_stats_txt.Length; idx++)
+            plus_monster_stats_txt[idx].text = plus_monster_stats[idx].ToString();
+
+        for (int idx = 0; idx < comp_monster_stats_txt.Length; idx++)
+        {
+            if(idx != 1)
+            {
+                comp_monster_stats_txt[idx].text = comp_monster_stats[idx].ToString() + "%";
+                if (comp_monster_stats[idx] >= 100)
+                    comp_monster_stats_txt[idx].GetComponent<result_monster_txt_control>().SetTextColorToRed();
+                else
+                    comp_monster_stats_txt[idx].GetComponent<result_monster_txt_control>().SetTextColorToBase();
+            }
+            else
+                comp_monster_stats_txt[idx].text = comp_monster_stats[idx].ToString() + "%";
+        }
     }
 }

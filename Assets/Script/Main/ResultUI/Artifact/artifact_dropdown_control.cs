@@ -6,18 +6,14 @@ public class artifact_dropdown_control : MonoBehaviour
 {
     #region Public Variable
     public GameObject artifact_manager;
+    public Dropdown dropdown;
     public string[] op_title;
     public string artifacttype;
     public int stat_value = 0;
     #endregion
 
     #region Local Variable
-    Dropdown dropdown;
     #endregion
-    private void Awake()
-    {
-        dropdown = this.GetComponent<Dropdown>();
-    }
     private void Start()
     {
         StatCheckFunction_UI(0);

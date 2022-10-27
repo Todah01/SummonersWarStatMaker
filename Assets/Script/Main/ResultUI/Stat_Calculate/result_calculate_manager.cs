@@ -104,7 +104,7 @@ public class result_calculate_manager : MonoBehaviour
 
         #region Save stat after calculate.
         // save monster stat
-        divide_stats_cur.Add(cur_spd);
+        divide_stats_cur.Add(cur_hp);
         divide_stats_cur.Add(cur_atk);
         divide_stats_cur.Add(cur_def);
         divide_stats_cur.Add(cur_spd);

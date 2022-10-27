@@ -17,8 +17,8 @@ public class rune_stat_select_control : MonoBehaviour
 
     private void Awake()
     {
-        StatCheckFunction_UI(0);
         dropdown = this.GetComponent<Dropdown>();
+        StatCheckFunction_UI(0);
     }
     public void Function_Dropdown()
     {

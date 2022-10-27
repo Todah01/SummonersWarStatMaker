@@ -144,14 +144,14 @@ public class select_data_control : MonoBehaviour
         if (prefer_stat_type.Count == prefer_stat_cnt)
             check_prefer_stat = true;
 
-        resultmanager.GetComponent<result_manager>().OnClickReCalculateBtn();
+        resultmanager.GetComponent<result_calculate_manager>().OnClickReCalculateBtn();
     }
     public void Recalculate_Without_ResetPreferStat()
     {
         left_artifact_dropdown.GetComponent<artifact_dropdown_control>().ResetDropdown();
         right_artifact_dropdown.GetComponent<artifact_dropdown_control>().ResetDropdown();
         artifact_boxes.GetComponent<artifact_manager>().SetSpriteArtifact();
-        resultmanager.GetComponent<result_manager>().OnClickReCalculateBtn();
+        resultmanager.GetComponent<result_calculate_manager>().OnClickReCalculateBtn();
     }
     public void OnClickPirate()
     {
@@ -175,7 +175,7 @@ public class select_data_control : MonoBehaviour
     {
         if (check_monster && check_rune && check_even_rune_stat && check_prefer_stat)
         {
-            resultmanager.GetComponent<result_manager>().Start_StatSetting();
+            resultmanager.GetComponent<result_calculate_manager>().Start_StatSetting();
             StartCoroutine(OpenResultWindow());
         }
         else

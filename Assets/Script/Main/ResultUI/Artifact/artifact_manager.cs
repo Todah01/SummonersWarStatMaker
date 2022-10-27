@@ -14,17 +14,20 @@ public class artifact_manager : MonoBehaviour
     public GameObject artifact_set_window;
     public Dropdown left_artifact_dropdown;
     public Dropdown right_artifact_dropdown;
+    public Text monster_hp;
+    public Text monster_atk;
+    public Text monster_def;
     #endregion
 
     #region Local Variable
-    int left_artifact_value, right_artifact_value;
-    int left_artifact_dropdown_value;
-    int right_artifact_dropdown_value;
+    int left_artifact_dropdown_value = 0;
+    int right_artifact_dropdown_value = 0;
+    int temp_hp = 0, temp_atk = 0, temp_def = 0;
     #endregion
     // set sprite artifact
     public void SetSpriteArtifact()
     {
-        if (left_artifact_value != 0)
+        if (left_artifact_dropdown_value != 0)
         {
             artifacts[0].GetComponent<Image>().sprite = complete_artifacts[0];
             plus_15s[0].SetActive(true);
@@ -35,7 +38,7 @@ public class artifact_manager : MonoBehaviour
             plus_15s[0].SetActive(false);
         }
 
-        if (right_artifact_value != 0)
+        if (right_artifact_dropdown_value != 0)
         {
             artifacts[1].GetComponent<Image>().sprite = complete_artifacts[1];
             plus_15s[1].SetActive(true);
@@ -62,79 +65,79 @@ public class artifact_manager : MonoBehaviour
         if (dir == "left")
         {
             // clear cur artifact stat and reset plus stat
-            if (left_artifact_dropdown_values == 1)
+            if (left_artifact_dropdown_value == 1)
             {
-                plus_atk -= 100;
+                temp_atk -= 100;
             }
-            else if (left_artifact_dropdown_values == 2)
+            else if (left_artifact_dropdown_value == 2)
             {
-                plus_def -= 100;
+                temp_def -= 100;
             }
-            else if (left_artifact_dropdown_values == 3)
+            else if (left_artifact_dropdown_value == 3)
             {
-                plus_hp -= 1500;
+                temp_hp -= 1500;
             }
 
             // reset artifact stat
-            left_artifact_dropdown_values = 0;
+            left_artifact_dropdown_value = 0;
 
             // add artifact stat to plus stat
             if (value == 1)
             {
-                plus_atk += 100;
-                left_artifact_dropdown_values = 1;
+                temp_atk += 100;
+                left_artifact_dropdown_value = 1;
             }
             else if (value == 2)
             {
-                plus_def += 100;
-                left_artifact_dropdown_values = 2;
+                temp_def += 100;
+                left_artifact_dropdown_value = 2;
             }
             else if (value == 3)
             {
-                plus_hp += 1500;
-                left_artifact_dropdown_values = 3;
+                temp_hp += 1500;
+                left_artifact_dropdown_value = 3;
             }
         }
         // check artifact type
         else if (dir == "right")
         {
             // clear cur artifact stat and reset plus stat
-            if (right_artifact_dropdown_values == 1)
+            if (right_artifact_dropdown_value == 1)
             {
-                plus_atk -= 100;
+                temp_atk -= 100;
             }
-            else if (right_artifact_dropdown_values == 2)
+            else if (right_artifact_dropdown_value == 2)
             {
-                plus_def -= 100;
+                temp_def -= 100;
             }
-            else if (right_artifact_dropdown_values == 3)
+            else if (right_artifact_dropdown_value == 3)
             {
-                plus_hp -= 1500;
+                temp_hp -= 1500;
             }
 
             // reset artifact stat
-            right_artifact_dropdown_values = 0;
+            right_artifact_dropdown_value = 0;
 
             // add artifact stat to plus stat
             if (value == 1)
             {
-                plus_atk += 100;
-                right_artifact_dropdown_values = 1;
+                temp_atk += 100;
+                right_artifact_dropdown_value = 1;
             }
             else if (value == 2)
             {
-                plus_def += 100;
-                right_artifact_dropdown_values = 2;
+                temp_def += 100;
+                right_artifact_dropdown_value = 2;
             }
             else if (value == 3)
             {
-                plus_hp += 1500;
-                right_artifact_dropdown_values = 3;
+                temp_hp += 1500;
+                right_artifact_dropdown_value = 3;
             }
         }
 
-        monster_plus_stats_divide[1].text = plus_atk.ToString();
-        monster_plus_stats_divide[2].text = plus_def.ToString();
-        monster_plus_stats_divide[0].text = plus_hp.ToString();
+        monster_hp.text = (int.Parse(monster_hp.text) + temp_hp).ToString();
+        monster_atk.text = (int.Parse(monster_atk.text) + temp_atk).ToString();
+        monster_def.text = (int.Parse(monster_def.text) + temp_def).ToString();
     }
 }
