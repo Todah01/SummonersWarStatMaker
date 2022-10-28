@@ -22,6 +22,8 @@ public class result_ui_manager : MonoBehaviour
     #endregion
     public void Set_data_to_result_ui()
     {
+        Debug.Log("result ui setting");
+
         // Get monster name and set monster name.
         monster_name = selected_data.GetComponent<select_data_control>().selected_monster.text;
         monster_name_txt.text = monster_name;

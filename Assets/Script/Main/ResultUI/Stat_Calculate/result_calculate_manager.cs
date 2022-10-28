@@ -648,6 +648,9 @@ public class result_calculate_manager : MonoBehaviour
     {
         rune_stat_infos.Clear();
         conversion_dict.Clear();
+        divide_stats_cur.Clear();
+        divide_stats_plus.Clear();
+        comp_stats.Clear();
         plus_spd = 0;
         plus_atk = 0;
         plus_hp = 0;

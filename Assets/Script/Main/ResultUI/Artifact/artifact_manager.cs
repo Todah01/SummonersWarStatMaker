@@ -10,7 +10,7 @@ public class artifact_manager : MonoBehaviour
     public Sprite[] complete_artifacts;
     public GameObject[] plus_15s;
     public GameObject[] artifacts;
-    public GameObject resultmanager;
+    public GameObject result_calculate_manager;
     public GameObject artifact_set_window;
     public Dropdown left_artifact_dropdown;
     public Dropdown right_artifact_dropdown;
@@ -22,8 +22,9 @@ public class artifact_manager : MonoBehaviour
     #region Local Variable
     int left_artifact_dropdown_value = 0;
     int right_artifact_dropdown_value = 0;
-    int temp_hp = 0, temp_atk = 0, temp_def = 0;
+    int temp_hp, temp_atk, temp_def;
     #endregion
+
     // set sprite artifact
     public void SetSpriteArtifact()
     {
@@ -61,6 +62,10 @@ public class artifact_manager : MonoBehaviour
     // add artifact stat func
     public void AddArtifactStat(string dir, int value)
     {
+        temp_atk = result_calculate_manager.GetComponent<result_calculate_manager>().divide_stats_plus[1];
+        temp_def = result_calculate_manager.GetComponent<result_calculate_manager>().divide_stats_plus[2];
+        temp_hp = result_calculate_manager.GetComponent<result_calculate_manager>().divide_stats_plus[0];
+        
         // check artifact type
         if (dir == "left")
         {
@@ -136,8 +141,12 @@ public class artifact_manager : MonoBehaviour
             }
         }
 
-        monster_hp.text = (int.Parse(monster_hp.text) + temp_hp).ToString();
-        monster_atk.text = (int.Parse(monster_atk.text) + temp_atk).ToString();
-        monster_def.text = (int.Parse(monster_def.text) + temp_def).ToString();
+        result_calculate_manager.GetComponent<result_calculate_manager>().divide_stats_plus[1] = temp_atk;
+        result_calculate_manager.GetComponent<result_calculate_manager>().divide_stats_plus[2] = temp_def;
+        result_calculate_manager.GetComponent<result_calculate_manager>().divide_stats_plus[0] = temp_hp;
+
+        monster_atk.text = temp_atk.ToString();
+        monster_def.text = temp_def.ToString();
+        monster_hp.text = temp_hp.ToString();
     }
 }

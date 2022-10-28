@@ -10404,7 +10404,7 @@ MonoBehaviour:
   artifacts:
   - {fileID: 358030873}
   - {fileID: 2040028894}
-  resultmanager: {fileID: 1365273597}
+  result_calculate_manager: {fileID: 1365273597}
   artifact_set_window: {fileID: 2039488997}
   left_artifact_dropdown: {fileID: 1441885582}
   right_artifact_dropdown: {fileID: 1692638391}
@@ -20477,6 +20477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c3601cb6c1dd645962a60284a23c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  result_ui_manager: {fileID: 0}
   etc_window: {fileID: 528428752}
   etc_angel: {fileID: 1271051781}
   etc_start: {fileID: 1543627513}

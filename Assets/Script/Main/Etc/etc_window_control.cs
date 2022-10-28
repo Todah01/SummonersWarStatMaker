@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class etc_window_control : MonoBehaviour
 {
+    #region Public Variable
+    public GameObject result_ui_manager;
     public GameObject etc_window;
     public GameObject etc_angel;
     public GameObject etc_start;
@@ -16,13 +18,16 @@ public class etc_window_control : MonoBehaviour
     public GameObject loading_canvas;
     public GameObject prefer_stat_click_window;
     public Text etc_notice_description;
+    #endregion
 
+    #region Local Variable
     Animator warrior_anim;
     Animator angelmon_anim;
     bool isetcopen = false;
     bool check_stat_click = false;
     bool isrecal_click = false;
     string cur_click_btn_name;
+    #endregion
 
     #region Word Bubble
     private void Awake()

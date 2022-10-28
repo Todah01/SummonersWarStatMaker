@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class artifact_dropdown_control : MonoBehaviour
 {
     #region Public Variable
