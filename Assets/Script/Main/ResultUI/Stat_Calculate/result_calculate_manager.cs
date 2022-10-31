@@ -11,8 +11,10 @@ public class result_calculate_manager : MonoBehaviour
     public GameObject selected_data;
     public GameObject GoogleDataManager;
     public List<int> divide_stats_cur, divide_stats_plus, comp_stats;
+    public List<List<int>> grinding_stat_list = new List<List<int>>();
     public Dictionary<int, string> conversion_dict = new Dictionary<int, string>();
     public List<Dictionary<string, int>> rune_stat_infos = new List<Dictionary<string, int>>();
+    public List<Dictionary<string, int>> rune_stat_sum_info = new List<Dictionary<string, int>>();
     #endregion
 
     #region Local Variable
@@ -208,6 +210,8 @@ public class result_calculate_manager : MonoBehaviour
 
         // Set temporary dictionary for save rune info
         Dictionary<string, int> temp_rune_info = new Dictionary<string, int>();
+        Dictionary<string, int> temp_rune_stat_sum_info = new Dictionary<string, int>();
+        List<int> temp_grinding_info = new List<int>();
         #endregion
 
         #region Variable to limit stat that don't spill over target stat.
@@ -517,24 +521,36 @@ public class result_calculate_manager : MonoBehaviour
         temp_rune_info[converstion_stat] = converstion_stat_value;
         #endregion
 
+        // copy rune infomation to temp_rune_stat_sum_info.
+        foreach(var dict in temp_rune_info)
+        {
+            temp_rune_stat_sum_info.Add(dict.Key, dict.Value);
+        }
+
         #region Grinding stats of rune.
         // grinding rune stat
-        for (int i = 0; i < temp_rune_info.Count; i++)
+        for (int i = 0; i < temp_rune_stat_sum_info.Count; i++)
         {
-            if (temp_rune_info.Keys.ToList()[i] == "HP" || temp_rune_info.Keys.ToList()[i] == "ATK" || temp_rune_info.Keys.ToList()[i] == "DEF")
+            if (temp_rune_stat_sum_info.Keys.ToList()[i] == "HP" || temp_rune_stat_sum_info.Keys.ToList()[i] == "ATK" || temp_rune_stat_sum_info.Keys.ToList()[i] == "DEF")
             {
-                temp_rune_info[temp_rune_info.Keys.ToList()[i]] += 10;
+                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 10;
+                temp_grinding_info.Add(10);
             }
-            else if (temp_rune_info.Keys.ToList()[i] == "SPD")
+            else if (temp_rune_stat_sum_info.Keys.ToList()[i] == "SPD")
             {
-                temp_rune_info[temp_rune_info.Keys.ToList()[i]] += 5;
+                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 5;
+                temp_grinding_info.Add(5);
+            }
+            else
+            {
+                temp_grinding_info.Add(0);
             }
         }
         #endregion
 
         #region Add calculated stat to plus stat.
         // calculate plus stat from current stat
-        foreach (var dict in temp_rune_info)
+        foreach (var dict in temp_rune_stat_sum_info)
         {
             if (dict.Key == "SPD") plus_spd += dict.Value;
             else if (dict.Key == "HP") plus_hp += Mathf.RoundToInt((float)cur_hp * (dict.Value / 100f));
@@ -547,8 +563,12 @@ public class result_calculate_manager : MonoBehaviour
         }
         #endregion
 
+        // Add grinding stat infomation to list.
+        grinding_stat_list.Add(temp_grinding_info);
         // Add rune stat infomation to dictionary.
         rune_stat_infos.Add(temp_rune_info);
+        // Add rune stat sum infomation to dictionary.
+        rune_stat_sum_info.Add(temp_rune_stat_sum_info);
     }
 
     // Set rainforce stat based on stat type and percentage.
@@ -647,6 +667,8 @@ public class result_calculate_manager : MonoBehaviour
     public void ResetStat()
     {
         rune_stat_infos.Clear();
+        rune_stat_sum_info.Clear();
+        grinding_stat_list.Clear();
         conversion_dict.Clear();
         divide_stats_cur.Clear();
         divide_stats_plus.Clear();
