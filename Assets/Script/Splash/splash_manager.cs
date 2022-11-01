@@ -44,7 +44,7 @@ public class splash_manager : MonoBehaviour
     IEnumerator GoToMain()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Select");
+        SceneManager.LoadScene("Main");
     }
 
     #region Splash image Control

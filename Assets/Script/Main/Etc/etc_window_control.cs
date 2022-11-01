@@ -115,7 +115,7 @@ public class etc_window_control : MonoBehaviour
     public void OnClickYes()
     {
         if(cur_click_btn_name == "reset")
-            SceneManager.LoadScene("Loading");
+            SceneManager.LoadScene("Splash");
 
         if(cur_click_btn_name == "recal")
         {
