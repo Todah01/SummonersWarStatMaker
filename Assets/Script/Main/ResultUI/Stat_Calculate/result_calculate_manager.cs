@@ -191,6 +191,8 @@ public class result_calculate_manager : MonoBehaviour
     // Calculate stat based on selected prefer stats.
     void CalStatFromPreferStat(int number)
     {
+        // Set strategy pattern. (receive rune stat)
+
         #region Set rune stat scoreboard
         Dictionary<string, int> stat_scoreboard = separate_stats[number - 1];
         // get rune data from seleted data
@@ -602,6 +604,7 @@ public class result_calculate_manager : MonoBehaviour
         else return rainforce_value;
     }
     // Set conversion stat based on swsm logic.
+    // Set strategy pattern. (receive rune conversion stat)
     string CalConversionStatFromRune(Dictionary<string, int> conversion_stat_dict, bool pre_option_check, string pre_option_stat)
     {
         string check_stat = "";
