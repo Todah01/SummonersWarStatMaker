@@ -22,6 +22,7 @@ public class result_calculate_manager : MonoBehaviour
     {
         {"SPD", 6}, {"HP", 8}, {"ATK", 8}, {"DEF", 8}, {"CRI RATE", 6}, {"CRI DMG", 7}, {"ACC", 8}, {"RES", 8}
     };
+    Dictionary<string, int> ancient_stat_rainforce_value = new Dictionary<string, int>();
     List<Dictionary<string, int>> separate_stats = new List<Dictionary<string, int>>();
     List<string> rune_type;
     List<string> even_rune_stat_type;
