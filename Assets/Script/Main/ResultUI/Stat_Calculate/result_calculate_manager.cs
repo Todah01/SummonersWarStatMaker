@@ -20,9 +20,8 @@ public class result_calculate_manager : MonoBehaviour
     #region Local Variable
     Dictionary<string, int> stat_rainforce_value = new Dictionary<string, int>()
     {
-        {"SPD", 6}, {"HP", 8}, {"ATK", 8}, {"DEF", 8}, {"CRI RATE", 6}, {"CRI DMG", 7}, {"ACC", 8}, {"RES", 8}
+        {"SPD", 6}, {"HP", 8}, {"ATK", 8}, {"DEF", 8}, {"CRI RATE", 6}, {"CRI DMG", 7}, {"ACC", 8}, {"RES", 8}, {"HP+", 375}, {"ATK+", 20}, {"DEF+", 20}
     };
-    Dictionary<string, int> ancient_stat_rainforce_value = new Dictionary<string, int>();
     List<Dictionary<string, int>> separate_stats = new List<Dictionary<string, int>>();
     List<string> rune_type;
     List<string> even_rune_stat_type;
@@ -36,27 +35,27 @@ public class result_calculate_manager : MonoBehaviour
         // set separate_stats
         Dictionary<string, int> separate_stat_1 = new Dictionary<string, int>()
         {
-            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}
+            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}, {"HP+", 10}
         };
         Dictionary<string, int> separate_stat_2 = new Dictionary<string, int>()
         {
-            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}
+            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}, {"HP+", 10}, {"ATK+", 10}, {"DEF+", 10}
         };
         Dictionary<string, int> separate_stat_3 = new Dictionary<string, int>()
         {
-            {"SPD", 10}, {"HP", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}
+            {"SPD", 10}, {"HP", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}, {"HP+", 10}
         };
         Dictionary<string, int> separate_stat_4 = new Dictionary<string, int>()
         {
-            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}
+            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}, {"HP+", 10}, {"ATK+", 10}, {"DEF+", 10}
         };
         Dictionary<string, int> separate_stat_5 = new Dictionary<string, int>()
         {
-            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}
+            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}, {"ATK+", 10}, {"DEF+", 10}
         };
         Dictionary<string, int> separate_stat_6 = new Dictionary<string, int>()
         {
-            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}
+            {"SPD", 10}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 10}, {"CRI DMG", 10}, {"ACC", 10}, {"RES", 10}, {"HP+", 10}, {"ATK+", 10}, {"DEF+", 10}
         };
         
         separate_stats.Add(separate_stat_1);
@@ -200,13 +199,23 @@ public class result_calculate_manager : MonoBehaviour
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         // check prefer stat and plus score in separte_stats
         prefer_stat_type = selected_data.GetComponent<select_data_control>().prefer_stat_type;
-        for(int i=0; i<prefer_stat_type.Count; i++)
+        int prefer_stat_add_value = 4;
+        foreach(var stat in prefer_stat_type)
         {
-            if(i == 0 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 4;
-            else if (i == 1 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 3;
-            else if (i == 2 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 2;
-            else if (i == 3 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 1;
+            if(stat_scoreboard.ContainsKey(stat))
+            {
+                stat_scoreboard[stat] += prefer_stat_add_value;
+                prefer_stat_add_value--;
+            }
         }
+
+        //for(int i=0; i<prefer_stat_type.Count; i++)
+        //{
+        //    if(i == 0 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 4;
+        //    else if (i == 1 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 3;
+        //    else if (i == 2 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 2;
+        //    else if (i == 3 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 1;
+        //}
 
         // sort stat_scoreboard by value
         stat_scoreboard.OrderByDescending(item => item.Key).ToDictionary(x => x.Key, x => x.Value);
@@ -563,6 +572,9 @@ public class result_calculate_manager : MonoBehaviour
             else if (dict.Key == "CRI DMG") plus_cridmg += dict.Value;
             else if (dict.Key == "RES") plus_res += dict.Value;
             else if (dict.Key == "ACC") plus_acc += dict.Value;
+            else if (dict.Key == "HP+") plus_hp += dict.Value;
+            else if (dict.Key == "ATK+") plus_atk += dict.Value;
+            else if (dict.Key == "DEF+") plus_def += dict.Value;
         }
         #endregion
 

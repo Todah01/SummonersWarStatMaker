@@ -7253,6 +7253,9 @@ MonoBehaviour:
   - CRI DMG
   - ACC
   - RES
+  - HP+
+  - ATK+
+  - DEF+
   stat_value: 0
   stat_string: 
 --- !u!114 &389253264
@@ -7308,7 +7311,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 389253263}
+      - m_Target: {fileID: 0}
         m_MethodName: Function_Dropdown
         m_Mode: 1
         m_Arguments:
@@ -14106,7 +14109,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 796083392}
+      - m_Target: {fileID: 0}
         m_MethodName: Function_Dropdown
         m_Mode: 1
         m_Arguments:
@@ -14177,6 +14180,9 @@ MonoBehaviour:
   - CRI DMG
   - ACC
   - RES
+  - HP+
+  - ATK+
+  - DEF+
   stat_value: 0
   stat_string: 
 --- !u!1 &808639541
@@ -19314,7 +19320,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1059035767}
+      - m_Target: {fileID: 0}
         m_MethodName: Function_Dropdown
         m_Mode: 1
         m_Arguments:
@@ -19385,6 +19391,9 @@ MonoBehaviour:
   - CRI DMG
   - ACC
   - RES
+  - HP+
+  - ATK+
+  - DEF+
   stat_value: 0
   stat_string: 
 --- !u!1 &1059981026
@@ -26928,6 +26937,9 @@ MonoBehaviour:
   - CRI DMG
   - ACC
   - RES
+  - HP+
+  - ATK+
+  - DEF+
   stat_value: 0
   stat_string: 
 --- !u!1 &1452448058
