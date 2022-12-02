@@ -199,7 +199,7 @@ public class result_calculate_manager : MonoBehaviour
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         // check prefer stat and plus score in separte_stats
         prefer_stat_type = selected_data.GetComponent<select_data_control>().prefer_stat_type;
-        int prefer_stat_add_value = 4;
+        int prefer_stat_add_value = 5;
         foreach(var stat in prefer_stat_type)
         {
             if(stat_scoreboard.ContainsKey(stat))
@@ -209,16 +209,28 @@ public class result_calculate_manager : MonoBehaviour
             }
         }
 
-        //for(int i=0; i<prefer_stat_type.Count; i++)
-        //{
-        //    if(i == 0 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 4;
-        //    else if (i == 1 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 3;
-        //    else if (i == 2 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 2;
-        //    else if (i == 3 && stat_scoreboard.ContainsKey(prefer_stat_type[i])) stat_scoreboard[prefer_stat_type[i]] += 1;
-        //}
+        //Check prefer stat and set fix stat value.
+        if(prefer_stat_type.Contains("HP") && prefer_stat_type.Contains("DEF"))
+        {
+            if(stat_scoreboard.ContainsKey("HP+"))
+                stat_scoreboard["HP+"] += 1;
+        }
+        else if (prefer_stat_type.Contains("HP") && prefer_stat_type.Contains("RES"))
+        {
+            if (stat_scoreboard.ContainsKey("DEF"))
+                stat_scoreboard["DEF"] += 2;
+
+            if (stat_scoreboard.ContainsKey("HP+"))
+                stat_scoreboard["HP+"] += 1;
+        }
 
         // sort stat_scoreboard by value
-        stat_scoreboard.OrderByDescending(item => item.Key).ToDictionary(x => x.Key, x => x.Value);
+        stat_scoreboard.OrderByDescending(item => item.Value); //.ToDictionary(x => x.Key, x => x.Value);
+
+        foreach(var stat in stat_scoreboard)
+        {
+            Debug.Log(stat.Key + ":" + stat.Value + "\n");
+        }
 
         // Set temporary dictionary for save rune info
         Dictionary<string, int> temp_rune_info = new Dictionary<string, int>();
@@ -344,6 +356,11 @@ public class result_calculate_manager : MonoBehaviour
             }
 
             Debug.Log(number + " Part 2. Calculate Ok");
+
+            foreach(var dict in temp_rune_info)
+            {
+                Debug.Log(dict.Key + ":" + dict.Value + "\n");
+            }
 
             // rainforce count variable
             int rainforce_cnt = 0;
@@ -553,6 +570,16 @@ public class result_calculate_manager : MonoBehaviour
                 temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 5;
                 temp_grinding_info.Add(5);
             }
+            else if (temp_rune_stat_sum_info.Keys.ToList()[i] == "DEF+" || temp_rune_stat_sum_info.Keys.ToList()[i] == "ATK+")
+            {
+                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 30;
+                temp_grinding_info.Add(30);
+            }
+            else if (temp_rune_stat_sum_info.Keys.ToList()[i] == "HP+")
+            {
+                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 550;
+                temp_grinding_info.Add(550);
+            }
             else
             {
                 temp_grinding_info.Add(0);
@@ -612,8 +639,8 @@ public class result_calculate_manager : MonoBehaviour
     int CalRainforceValue(int rainforce_value)
     {
         int percentage = Random.Range(1, 100);
-        if (percentage > 0 && percentage <= 5) return rainforce_value -= 2;
-        else if (percentage > 5 && percentage <= 30) return rainforce_value -= 1;
+        if (percentage > 0 && percentage <= 5) return rainforce_value -= Mathf.CeilToInt(rainforce_value * 0.25f);
+        else if (percentage > 5 && percentage <= 30) return rainforce_value -= Mathf.CeilToInt(rainforce_value * 0.125f);
         else return rainforce_value;
     }
     // Set conversion stat based on swsm logic.
@@ -634,6 +661,8 @@ public class result_calculate_manager : MonoBehaviour
                 continue;
 
             // excluding stat that is inefficient to use grinding stone.
+            if (dict.Key == "HP+" || dict.Key == "DEF+" || dict.Key == "ATK+")
+                continue;
 
             // get difference from check value
             int check_value = stat_rainforce_value[dict.Key] - dict.Value;
