@@ -21,7 +21,9 @@ public class rune_info_text_control_grind : MonoBehaviour
         stat_amount_2 = sub_text_2.GetComponent<Text>();
 
         if (stat_name.text == "SPD" || stat_name.text == "ATK" ||
-            stat_name.text == "DEF" || stat_name.text == "HP")
+            stat_name.text == "DEF" || stat_name.text == "HP" ||
+            stat_name.text == "DEF+" || stat_name.text == "HP+" ||
+            stat_name.text == "ATK+")
         {
             ColorUtility.TryParseHtmlString("#FFFFFF", out color);
             stat_amount_1.transform.localPosition = new Vector2(55f, 0f);

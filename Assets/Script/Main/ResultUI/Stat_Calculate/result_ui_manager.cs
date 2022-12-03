@@ -22,7 +22,7 @@ public class result_ui_manager : MonoBehaviour
     #endregion
     public void Set_data_to_result_ui()
     {
-        Debug.Log("result ui setting");
+        Debug.Log("result ui setting...");
 
         // Get monster name and set monster name.
         monster_name = selected_data.GetComponent<select_data_control>().selected_monster.text;
@@ -45,7 +45,7 @@ public class result_ui_manager : MonoBehaviour
         comp_monster_stats = result_calculate_manager.GetComponent<result_calculate_manager>().comp_stats;
 
         // Set monster stats.
-        for(int idx = 0; idx<base_monster_stats_txt.Length; idx++)
+        for(int idx = 0; idx < base_monster_stats_txt.Length; idx++)
             base_monster_stats_txt[idx].text = base_monster_stats[idx].ToString();
 
         for (int idx = 0; idx < plus_monster_stats_txt.Length; idx++)

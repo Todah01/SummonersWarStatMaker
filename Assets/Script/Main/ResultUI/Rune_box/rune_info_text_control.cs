@@ -20,7 +20,9 @@ public class rune_info_text_control : MonoBehaviour
         stat_amount = sub_text.GetComponent<Text>();
 
         if (stat_name.text == "SPD" || stat_name.text == "ATK" ||
-            stat_name.text == "DEF" || stat_name.text == "HP")
+            stat_name.text == "DEF" || stat_name.text == "HP" ||
+            stat_name.text == "DEF+" || stat_name.text == "HP+" ||
+            stat_name.text == "ATK+")
         {
             ColorUtility.TryParseHtmlString("#FDAC51", out color);
             stat_amount.transform.localPosition = new Vector3(55f, 0f, this.transform.localPosition.z);

@@ -225,7 +225,7 @@ public class result_calculate_manager : MonoBehaviour
         }
 
         // sort stat_scoreboard by value
-        stat_scoreboard.OrderByDescending(item => item.Value); //.ToDictionary(x => x.Key, x => x.Value);
+        stat_scoreboard = stat_scoreboard.OrderByDescending(item => item.Value).ToDictionary(x => x.Key, x => x.Value);
 
         foreach(var stat in stat_scoreboard)
         {
@@ -544,14 +544,21 @@ public class result_calculate_manager : MonoBehaviour
         if(pre_option_on) converstion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, temp_rune_info.Keys.ToList()[0]);
         else converstion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, "");
 
-        int converstion_stat_value = CalConversionStatValue(converstion_stat);
+        if(converstion_stat != "")
+        {
+            int converstion_stat_value = CalConversionStatValue(converstion_stat);
 
-        conversion_dict.Add(number, converstion_stat);
-        temp_rune_info[converstion_stat] = converstion_stat_value;
+            conversion_dict.Add(number, converstion_stat);
+            temp_rune_info[converstion_stat] = converstion_stat_value;
+        }
+        else
+        {
+            conversion_dict.Add(number, null);
+        }
         #endregion
 
         // copy rune infomation to temp_rune_stat_sum_info.
-        foreach(var dict in temp_rune_info)
+        foreach (var dict in temp_rune_info)
         {
             temp_rune_stat_sum_info.Add(dict.Key, dict.Value);
         }
@@ -611,6 +618,11 @@ public class result_calculate_manager : MonoBehaviour
         rune_stat_infos.Add(temp_rune_info);
         // Add rune stat sum infomation to dictionary.
         rune_stat_sum_info.Add(temp_rune_stat_sum_info);
+
+        foreach(var dict in temp_rune_info)
+        {
+            Debug.Log(dict.Key + ":" + dict.Value + "\n");
+        }
     }
 
     // Set rainforce stat based on stat type and percentage.

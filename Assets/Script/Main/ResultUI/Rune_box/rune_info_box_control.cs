@@ -163,6 +163,8 @@ public class rune_info_box_control : MonoBehaviour
         {
             string percentage = "";
 
+            Debug.Log(dict.Key + " : " + dict.Value);
+
             // check pre option
             if (ispreoption)
             {
@@ -196,7 +198,10 @@ public class rune_info_box_control : MonoBehaviour
                 }
 
                 first_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+                
                 first_rune_stat_amount_1.text = " + " + dict.Value.ToString() + percentage;
                 
                 if (grinding_stat_infos[rune_number][grind_number] != 0)
@@ -221,7 +226,10 @@ public class rune_info_box_control : MonoBehaviour
                 }
 
                 second_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+                
                 second_rune_stat_amount_1.text = " + " + dict.Value.ToString() + percentage;
                 
                 if (grinding_stat_infos[rune_number][grind_number] != 0)
@@ -246,7 +254,10 @@ public class rune_info_box_control : MonoBehaviour
                 }
 
                 third_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+
                 third_rune_stat_amount_1.text = " + " + dict.Value.ToString() + percentage;
                 
                 if (grinding_stat_infos[rune_number][grind_number] != 0)
@@ -271,7 +282,10 @@ public class rune_info_box_control : MonoBehaviour
                 }
 
                 fourth_rune_stat_name.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+
                 fourth_rune_stat_amount_1.text = " + " + dict.Value.ToString() + percentage;
 
                 if (grinding_stat_infos[rune_number][grind_number] != 0)
@@ -312,7 +326,10 @@ public class rune_info_box_control : MonoBehaviour
                     first_rune_conversion_icon_grinding_off.SetActive(true);
 
                 first_rune_stat_name_grind_off.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+
                 first_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
             }
             // set second option
@@ -326,7 +343,10 @@ public class rune_info_box_control : MonoBehaviour
                     second_rune_conversion_icon_grinding_off.SetActive(true);
 
                 second_rune_stat_name_grind_off.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+
                 second_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
             }
             // set third option
@@ -340,7 +360,10 @@ public class rune_info_box_control : MonoBehaviour
                     third_rune_conversion_icon_grinding_off.SetActive(true);
 
                 third_rune_stat_name_grind_off.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+
                 third_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
             }
             // set fourth option
@@ -354,7 +377,10 @@ public class rune_info_box_control : MonoBehaviour
                     fourth_rune_conversion_icon_grinding_off.SetActive(true);
 
                 fourth_rune_stat_name_grind_off.text = description_key;
-                if (dict.Key != "SPD") percentage += "%";
+                if (dict.Key != "SPD" && dict.Key != "HP+" &&
+                    dict.Key != "DEF+" && dict.Key != "ATK+")
+                    percentage += "%";
+
                 fourth_rune_stat_amount.text = " + " + dict.Value.ToString() + percentage;
             }
 
