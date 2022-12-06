@@ -3,49 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using Google.Play.Common;
 using Google.Play.AppUpdate;
-using Cysharp.Threading.Tasks;
 using System;
 
 public class googleplay_manager : MonoBehaviour
 {
-    public static googleplay_manager Instance { get; private set; }
-    AppUpdateManager appUpdateManager = null;
+    //AppUpdateManager appUpdateManager = new AppUpdateManager();
+    //// Creates an AppUpdateOptions for an immediate flow that allows
+    //// asset pack deletion.
+    
+    //IEnumerator CheckForUpdate()
+    //{
+    //    PlayAsyncOperation<AppUpdateInfo, AppUpdateErrorCode> appUpdateInfoOperation =
+    //      appUpdateManager.GetAppUpdateInfo();
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-    private void OnDestroy()
-    {
-        Instance = null;
-    }
+    //    // Wait until the asynchronous operation completes.
+    //    yield return appUpdateInfoOperation;
 
-    // In App Update Function
-    public async UniTask UpdateApp()
-    {
-        try
-        {
-            appUpdateManager = new AppUpdateManager();
+    //    if (appUpdateInfoOperation.IsSuccessful)
+    //    {
+    //        var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
+    //        // Check AppUpdateInfo's UpdateAvailability, UpdatePriority,
+    //        // IsUpdateTypeAllowed(), etc. and decide whether to ask the user
+    //        // to start an in-app update.
+    //        StartCoroutine(StartImmediateUpdate());
+    //    }
+    //    else
+    //    {
+    //        // Log appUpdateInfoOperation.Error.
+    //    }
+    //}
 
-            PlayAsyncOperation<AppUpdateInfo, AppUpdateErrorCode> appUpdateInfoOperation = appUpdateManager.GetAppUpdateInfo();
-            await appUpdateInfoOperation;
+    //IEnumerator StartImmediateUpdate()
+    //{
+    //    // Creates an AppUpdateRequest that can be used to monitor the
+    //    // requested in-app update flow.
+    //    var startUpdateRequest = appUpdateManager.StartUpdate(
+    //      // The result returned by PlayAsyncOperation.GetResult().
+    //      appUpdateInfoResult,
+    //      // The AppUpdateOptions created defining the requested in-app update
+    //      // and its parameters.
+    //      appUpdateOptions);
+    //    yield return startUpdateRequest;
 
-            if (appUpdateInfoOperation.IsSuccessful)
-            {
-                var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
-                var appUpdateOptions = AppUpdateOptions.ImmediateAppUpdateOptions();
-                var startUpdateRequest = appUpdateManager.StartUpdate(appUpdateInfoResult, appUpdateOptions);
-
-                await startUpdateRequest;
-            }
-            else
-            {
-                Debug.Log(appUpdateInfoOperation.Error);
-            }
-        }
-        catch(Exception e)
-        {
-            Debug.Log(e.Message);
-        }
-    }
+    //    // If the update completes successfully, then the app restarts and this line
+    //    // is never reached. If this line is reached, then handle the failure (for
+    //    // example, by logging result.Error or by displaying a message to the user).
+    //}
 }

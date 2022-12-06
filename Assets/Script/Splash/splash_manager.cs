@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Cysharp.Threading.Tasks;
 
 public class splash_manager : MonoBehaviour
 {
@@ -19,17 +18,13 @@ public class splash_manager : MonoBehaviour
     bool isApply = false;
     #endregion
 
+
     private void Awake()
     {
         // Get irene animation controllor from irene
         irene_anim_controllor = irene_animation.GetComponent<Animator>();
     }
-    async void Start()
-    {
-        // check app update from google play store
-        if (googleplay_manager.Instance != null)
-            await googleplay_manager.Instance.UpdateApp();
-    }
+
     // Set irene animation time
     public void OnClickIrene()
     {
