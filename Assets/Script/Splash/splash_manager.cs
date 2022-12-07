@@ -18,7 +18,6 @@ public class splash_manager : MonoBehaviour
     bool isApply = false;
     #endregion
 
-
     private void Awake()
     {
         // Get irene animation controllor from irene

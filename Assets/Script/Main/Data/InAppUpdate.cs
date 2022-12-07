@@ -56,6 +56,8 @@ public class InAppUpdate : MonoBehaviour
 
         yield return startUpdateRequest;
 
-
+        // If the update completes successfully, then the app restarts and this line
+        // is never reached. If this line is reached, then handle the failure (for
+        // example, by logging result.Error or by displaying a message to the user).
     }
 }
