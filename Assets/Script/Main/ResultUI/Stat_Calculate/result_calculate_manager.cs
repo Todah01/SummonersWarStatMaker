@@ -619,10 +619,10 @@ public class result_calculate_manager : MonoBehaviour
         // Add rune stat sum infomation to dictionary.
         rune_stat_sum_info.Add(temp_rune_stat_sum_info);
 
-        foreach(var dict in temp_rune_info)
-        {
-            Debug.Log(dict.Key + ":" + dict.Value + "\n");
-        }
+        //foreach(var dict in temp_rune_info)
+        //{
+        //    Debug.Log(dict.Key + ":" + dict.Value + "\n");
+        //}
     }
 
     // Set rainforce stat based on stat type and percentage.

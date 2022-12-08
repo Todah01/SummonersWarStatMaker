@@ -102,7 +102,7 @@ public class select_data_control : MonoBehaviour
         if (prefer_stat_type.Count == prefer_stat_cnt)
             check_prefer_stat = true;
 
-        Debug.Log(rune_dropdown_values.Count + " " + even_rune_stat_type.Count + " " + prefer_stat_type.Count);
+        // Debug.Log(rune_dropdown_values.Count + " " + even_rune_stat_type.Count + " " + prefer_stat_type.Count);
 
         selected_monster.text = monster_name;
         selected_rune_set.text = string.Join("\n\n", rune_type);
