@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -22,6 +24,7 @@ public class select_data_control : MonoBehaviour
     public GameObject selected_rune_bg;
     public GameObject selected_prefer_stat_bg;
     public GameObject pirate;
+    public GameObject angelmon_yellow;
     public GameObject word_bubble;
     public GameObject monster_name_drop;
     public GameObject word_bubble_in_angel;
@@ -29,24 +32,27 @@ public class select_data_control : MonoBehaviour
     public GameObject artifact_boxes;
     public GameObject left_artifact_dropdown;
     public GameObject right_artifact_dropdown;
-
-    public List<int> rune_dropdown_values;
-    public List<string> rune_type;
-    public List<string> even_rune_stat_type;
-    public List<string> prefer_stat_type;
     public Text selected_monster;
     public Text selected_rune_set;
     public Text selected_rune_set_stat;
     public Text selected_stat;
     public Text msg_error;
+
+    public List<int> rune_dropdown_values;
+    public List<string> rune_type;
+    public List<string> even_rune_stat_type;
+    public List<string> prefer_stat_type;
+    public bool isAncient;
     #endregion
 
     #region Local Variable
     Animator pirate_anim;
+    Animator angelmon_yellow_anim;
     int rune_cnt = 6;
     int even_rune_stat_cnt = 3;
     int prefer_stat_cnt = 4;
     bool ispirateon = false;
+    bool isangelyellow = false;
     bool check_monster = false;
     bool check_rune = false;
     bool check_even_rune_stat = false;
@@ -55,6 +61,7 @@ public class select_data_control : MonoBehaviour
     private void Awake()
     {
         pirate_anim = pirate.GetComponent<Animator>();
+        angelmon_yellow_anim = angelmon_yellow.GetComponent<Animator>();
     }
     public void Cal_Start()
     {
@@ -130,6 +137,18 @@ public class select_data_control : MonoBehaviour
         etc_bg.SetActive(false);
         rune_check_window.SetActive(false);
     }
+    public void AngelMonYellowControl()
+    {
+        if (isangelyellow) return;
+        isangelyellow = true;
+        angelmon_yellow_anim.SetTrigger("IsMotion", () =>
+        {
+            isangelyellow = false;
+        });
+        // Set Ancient Rune Effect
+
+
+    }
     public void ResetPreferStat()
     {
         prefer_stat_type.Clear();
@@ -158,13 +177,15 @@ public class select_data_control : MonoBehaviour
         if (ispirateon) return;
 
         ispirateon = true;
-        pirate_anim.SetTrigger("IsMotion");
         word_bubble.SetActive(true);
+        pirate_anim.SetTrigger("IsMotion", () =>
+        {
+            ispirateon = false;
+        });
         Invoke("WordBubbleClose", 2f);
     }
     void WordBubbleClose()
     {
-        ispirateon = false;
         word_bubble.SetActive(false);
     }
     public void loadingOn(bool check)

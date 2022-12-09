@@ -23,6 +23,7 @@ public class etc_window_control : MonoBehaviour
     #region Local Variable
     Animator warrior_anim;
     Animator angelmon_anim;
+    bool iswarrior = false;
     bool isetcopen = false;
     bool check_stat_click = false;
     bool isrecal_click = false;
@@ -60,9 +61,14 @@ public class etc_window_control : MonoBehaviour
 
     public void OnClickStartBtn()
     {
+        if (iswarrior) return;
+        iswarrior = true;
         check_stat_click = true;
-        warrior_anim.SetTrigger("IsMotion");
-        StartCoroutine(CalculateStart());
+        warrior_anim.SetTrigger("IsMotion", () =>
+        {
+            select_data.GetComponent<select_data_control>().Cal_Start();
+            iswarrior = false;
+        });
     }
     public void EtcWindowControl(bool control)
     {
@@ -80,8 +86,10 @@ public class etc_window_control : MonoBehaviour
     {
         if (isetcopen) return;
         isetcopen = true;
-        angelmon_anim.SetTrigger("IsMotion");
-        StartCoroutine(EtcWindowOpen());
+        angelmon_anim.SetTrigger("IsMotion", () =>
+        {
+            EtcWindowControl(true);
+        });
     }
     void OnClickRecalBtnInPrefer()
     {
@@ -151,20 +159,10 @@ public class etc_window_control : MonoBehaviour
     {
         Application.Quit();
     }
-    IEnumerator CalculateStart()
-    {
-        yield return new WaitForSeconds(0.5f);
-        select_data.GetComponent<select_data_control>().Cal_Start();
-    }
     IEnumerator ReCalculateStart()
     {
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(LoadingDelay());
-    }
-    IEnumerator EtcWindowOpen()
-    {
-        yield return new WaitForSeconds(0.5f);
-        EtcWindowControl(true);
     }
     IEnumerator LoadingDelay()
     {
