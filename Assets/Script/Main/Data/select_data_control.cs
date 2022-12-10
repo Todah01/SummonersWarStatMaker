@@ -146,8 +146,14 @@ public class select_data_control : MonoBehaviour
             isangelyellow = false;
         });
         // Set Ancient Rune Effect
-
-
+        if (isAncient == false)
+        {
+            isAncient = true;
+        }
+        else
+        {
+            isAncient = false;
+        }
     }
     public void ResetPreferStat()
     {

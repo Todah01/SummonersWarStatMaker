@@ -22,10 +22,15 @@ public class result_calculate_manager : MonoBehaviour
     {
         {"SPD", 6}, {"HP", 8}, {"ATK", 8}, {"DEF", 8}, {"CRI RATE", 6}, {"CRI DMG", 7}, {"ACC", 8}, {"RES", 8}, {"HP+", 375}, {"ATK+", 20}, {"DEF+", 20}
     };
+    Dictionary<string, int> ancient_stat_rainforce_value = new Dictionary<string, int>()
+    {
+        {"SPD", 7}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 7}, {"CRI DMG", 9}, {"ACC", 10}, {"RES", 10}, {"HP+", 435}, {"ATK+", 24}, {"DEF+", 24}
+    };
     List<Dictionary<string, int>> separate_stats = new List<Dictionary<string, int>>();
     List<string> rune_type;
     List<string> even_rune_stat_type;
     List<string> prefer_stat_type;
+    bool check_ancient;
     int cur_hp, cur_atk, cur_def, cur_spd, cur_crirate, cur_cridmg, cur_res, cur_acc;
     int plus_hp, plus_atk, plus_def, plus_spd, plus_crirate, plus_cridmg, plus_res, plus_acc;
     #endregion
@@ -72,6 +77,7 @@ public class result_calculate_manager : MonoBehaviour
         rune_type = selected_data.GetComponent<select_data_control>().rune_type;
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         prefer_stat_type = selected_data.GetComponent<select_data_control>().prefer_stat_type;
+        check_ancient = selected_data.GetComponent<select_data_control>().isAncient;
         #endregion
 
         #region Get stat data from DB.
@@ -192,7 +198,6 @@ public class result_calculate_manager : MonoBehaviour
     void CalStatFromPreferStat(int number)
     {
         // Set strategy pattern. (receive rune stat)
-
         #region Set rune stat scoreboard
         Dictionary<string, int> stat_scoreboard = separate_stats[number - 1];
         // get rune data from seleted data
@@ -328,7 +333,11 @@ public class result_calculate_manager : MonoBehaviour
                     prefer_res && prefer_stat_type[i] == "RES" && cur_res + plus_res >= min_res)
                     continue;
 
-                int rainforce_value = CalRainforceValue(stat_rainforce_value[prefer_stat_type[i]]);
+                int rainforce_value = 0;
+                // Set ancient value.
+                if(check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[prefer_stat_type[i]]);
+                else rainforce_value = CalRainforceValue(stat_rainforce_value[prefer_stat_type[i]]);
+                
                 temp_rune_info.Add(prefer_stat_type[i], rainforce_value);
             }
 
@@ -347,7 +356,10 @@ public class result_calculate_manager : MonoBehaviour
                     if (temp_rune_info.Count == rune_stat_cnt)
                         break;
 
-                    int rainforce_value = CalRainforceValue(stat_rainforce_value[key]);
+                    int rainforce_value = 0;
+                    if (check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[key]);
+                    else rainforce_value = CalRainforceValue(stat_rainforce_value[key]);
+
                     temp_rune_info.Add(key, rainforce_value);
                 }
 
@@ -431,7 +443,10 @@ public class result_calculate_manager : MonoBehaviour
                     prefer_res && prefer_stat_type[i] == "RES" && cur_res + plus_res >= min_res)
                     continue;
 
-                int rainforce_value = CalRainforceValue(stat_rainforce_value[prefer_stat_type[i]]);
+                int rainforce_value = 0;
+                if (check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[prefer_stat_type[i]]);
+                else rainforce_value = CalRainforceValue(stat_rainforce_value[prefer_stat_type[i]]);
+                
                 temp_rune_info.Add(prefer_stat_type[i], rainforce_value);
             }
 
@@ -450,7 +465,10 @@ public class result_calculate_manager : MonoBehaviour
                     if (temp_rune_info.Count == rune_stat_cnt)
                         break;
 
-                    int rainforce_value = CalRainforceValue(stat_rainforce_value[key]);
+                    int rainforce_value = 0;
+                    if (check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[key]);
+                    else rainforce_value = CalRainforceValue(stat_rainforce_value[key]);
+                    
                     temp_rune_info.Add(key, rainforce_value);
                 }
 
