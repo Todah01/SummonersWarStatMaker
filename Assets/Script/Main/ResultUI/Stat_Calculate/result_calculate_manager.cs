@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class result_calculate_manager : MonoBehaviour
 {
@@ -27,6 +27,7 @@ public class result_calculate_manager : MonoBehaviour
         {"SPD", 7}, {"HP", 10}, {"ATK", 10}, {"DEF", 10}, {"CRI RATE", 7}, {"CRI DMG", 9}, {"ACC", 10}, {"RES", 10}, {"HP+", 435}, {"ATK+", 24}, {"DEF+", 24}
     };
     List<Dictionary<string, int>> separate_stats = new List<Dictionary<string, int>>();
+    List<string> rune_name_infos;
     List<string> rune_type;
     List<string> even_rune_stat_type;
     List<string> prefer_stat_type;
@@ -74,6 +75,7 @@ public class result_calculate_manager : MonoBehaviour
     {
         #region Get selected data
         // get selected data
+        rune_name_infos = selected_data.GetComponent<select_data_control>().rune_names;
         rune_type = selected_data.GetComponent<select_data_control>().rune_type;
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         prefer_stat_type = selected_data.GetComponent<select_data_control>().prefer_stat_type;
@@ -585,25 +587,13 @@ public class result_calculate_manager : MonoBehaviour
         // grinding rune stat
         for (int i = 0; i < temp_rune_stat_sum_info.Count; i++)
         {
-            if (temp_rune_stat_sum_info.Keys.ToList()[i] == "HP" || temp_rune_stat_sum_info.Keys.ToList()[i] == "ATK" || temp_rune_stat_sum_info.Keys.ToList()[i] == "DEF")
+            
+            string grind_stat = temp_rune_stat_sum_info.Keys.ToList()[i];
+            if (rune_stat_data.grind_normal_rune.ContainsKey(grind_stat))
             {
-                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 10;
-                temp_grinding_info.Add(10);
-            }
-            else if (temp_rune_stat_sum_info.Keys.ToList()[i] == "SPD")
-            {
-                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 5;
-                temp_grinding_info.Add(5);
-            }
-            else if (temp_rune_stat_sum_info.Keys.ToList()[i] == "DEF+" || temp_rune_stat_sum_info.Keys.ToList()[i] == "ATK+")
-            {
-                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 30;
-                temp_grinding_info.Add(30);
-            }
-            else if (temp_rune_stat_sum_info.Keys.ToList()[i] == "HP+")
-            {
-                temp_rune_stat_sum_info[temp_rune_stat_sum_info.Keys.ToList()[i]] += 550;
-                temp_grinding_info.Add(550);
+                int grind_stat_value = rune_stat_data.grind_normal_rune[grind_stat];
+                temp_rune_stat_sum_info[grind_stat] += grind_stat_value;
+                temp_grinding_info.Add(grind_stat_value);
             }
             else
             {
@@ -725,15 +715,7 @@ public class result_calculate_manager : MonoBehaviour
     // Set conversion stat value based on summoners war data.
     int CalConversionStatValue(string conversion_stat)
     {
-        int conversion_value = 0;
-        if (conversion_stat == "HP" || conversion_stat == "ATK" || conversion_stat == "DEF")
-            conversion_value = 13;
-        else if (conversion_stat == "RES" || conversion_stat == "ACC")
-            conversion_value = 11;
-        else if (conversion_stat == "SPD" || conversion_stat == "CRI DMG")
-            conversion_value = 10;
-        else if (conversion_stat == "CRI RATE")
-            conversion_value = 9;
+        int conversion_value = rune_stat_data.conversion_normal_rune[conversion_stat];
 
         return conversion_value;
     }

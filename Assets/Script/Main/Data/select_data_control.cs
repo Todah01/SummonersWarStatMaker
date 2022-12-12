@@ -39,6 +39,7 @@ public class select_data_control : MonoBehaviour
     public Text msg_error;
 
     public List<int> rune_dropdown_values;
+    public List<string> rune_names;
     public List<string> rune_type;
     public List<string> even_rune_stat_type;
     public List<string> prefer_stat_type;
@@ -72,7 +73,10 @@ public class select_data_control : MonoBehaviour
         foreach (var obj in rune_slots)
         {
             if (obj.GetComponent<rune_slot_control>().dropdown_value != 0)
+            {
                 rune_dropdown_values.Add(obj.GetComponent<rune_slot_control>().dropdown_value);
+                rune_names.Add(obj.GetComponent<rune_slot_control>().rune_info);
+            }
         }
 
         if (rune_dropdown_values.Count == rune_cnt)
@@ -124,6 +128,7 @@ public class select_data_control : MonoBehaviour
     {
         rune_type.Clear();
         rune_dropdown_values.Clear();
+        rune_names.Clear();
         even_rune_stat_type.Clear();
         prefer_stat_type.Clear();
 

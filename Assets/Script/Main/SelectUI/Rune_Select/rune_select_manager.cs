@@ -54,6 +54,7 @@ public class rune_select_manager : MonoBehaviour
     private void Rune_Set_Change(object[] parameters)
     {
         int before_dropdown_value = 0;
+        Set_rune_name((string)parameters[0]);
 
         if ((string)parameters[0] == "* Select a rune set *")
         {
@@ -128,7 +129,10 @@ public class rune_select_manager : MonoBehaviour
             rune_img[cur_rune_number - 1].GetComponent<Image>().color = slot_pattern_color;
         }
     }
-
+    private void Set_rune_name(string rune_name)
+    {
+        rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_info = rune_name;
+    }
     private void Set_Stat_Value(int stat_value)
     {
         rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_stat_value = stat_value;
