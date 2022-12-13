@@ -129,6 +129,7 @@ public class select_data_control : MonoBehaviour
         rune_type.Clear();
         rune_dropdown_values.Clear();
         rune_names.Clear();
+
         even_rune_stat_type.Clear();
         prefer_stat_type.Clear();
 
