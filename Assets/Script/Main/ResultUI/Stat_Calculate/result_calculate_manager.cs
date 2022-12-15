@@ -10,6 +10,7 @@ public class result_calculate_manager : MonoBehaviour
     public GameObject etc_window_control;
     public GameObject selected_data;
     public GameObject GoogleDataManager;
+    public GameObject Rune_Data;
     public List<int> divide_stats_cur, divide_stats_plus, comp_stats;
     public List<List<int>> grinding_stat_list = new List<List<int>>();
     public Dictionary<int, string> conversion_dict = new Dictionary<int, string>();
@@ -18,6 +19,7 @@ public class result_calculate_manager : MonoBehaviour
     #endregion
 
     #region Local Variable
+    List<rune_set_class> rune_datas;
     Dictionary<string, int> stat_rainforce_value = new Dictionary<string, int>()
     {
         {"SPD", 6}, {"HP", 8}, {"ATK", 8}, {"DEF", 8}, {"CRI RATE", 6}, {"CRI DMG", 7}, {"ACC", 8}, {"RES", 8}, {"HP+", 375}, {"ATK+", 20}, {"DEF+", 20}
@@ -38,6 +40,8 @@ public class result_calculate_manager : MonoBehaviour
 
     private void Awake()
     {
+        // get rune data
+        rune_datas = Rune_Data.GetComponent<rune_control>().runes;
         // set separate_stats
         Dictionary<string, int> separate_stat_1 = new Dictionary<string, int>()
         {
@@ -98,14 +102,81 @@ public class result_calculate_manager : MonoBehaviour
         // add rune set effect stat
         for (int i=0; i<rune_type.Count; i++)
         {
-            if (rune_type[i] == "Swift") plus_spd += Mathf.RoundToInt(cur_spd * 0.25f);
-            else if (rune_type[i] == "Blade") plus_crirate += 12;
-            else if (rune_type[i] == "Endure") plus_res += 20;
-            else if (rune_type[i] == "Energy") plus_hp += Mathf.RoundToInt(cur_hp * 0.15f);
-            else if (rune_type[i] == "Fatal") plus_atk += Mathf.RoundToInt(cur_atk * 0.35f);
-            else if (rune_type[i] == "Focus") plus_acc += 20;
-            else if (rune_type[i] == "Guard") plus_def += Mathf.RoundToInt(cur_def * 0.15f);
-            else if (rune_type[i] == "Rage") plus_cridmg += 40;
+            switch(rune_type[i])
+            {
+                case "Swift":
+                    foreach(var data in rune_datas)
+                    {
+                        if(data.rune_data.name == rune_type[i])
+                        {
+                            plus_spd += data.get_set_effect(cur_spd);
+                        }
+                    }
+                    break;
+                case "Blade":
+                    foreach (var data in rune_datas)
+                    {
+                        if (data.rune_data.name == rune_type[i])
+                        {
+                            plus_crirate += data.get_set_effect(cur_crirate);
+                        }
+                    }
+                    break;
+                case "Focus":
+                    foreach (var data in rune_datas)
+                    {
+                        if (data.rune_data.name == rune_type[i])
+                        {
+                            plus_acc += data.get_set_effect(cur_acc);
+                        }
+                    }
+                    break;
+                case "Energy":
+                    foreach (var data in rune_datas)
+                    {
+                        if (data.rune_data.name == rune_type[i])
+                        {
+                            plus_hp += data.get_set_effect(cur_hp);
+                        }
+                    }
+                    break;
+                case "Endure":
+                    foreach (var data in rune_datas)
+                    {
+                        if (data.rune_data.name == rune_type[i])
+                        {
+                            plus_res += data.get_set_effect(cur_res);
+                        }
+                    }
+                    break;
+                case "Rage":
+                    foreach (var data in rune_datas)
+                    {
+                        if (data.rune_data.name == rune_type[i])
+                        {
+                            plus_cridmg += data.get_set_effect(cur_cridmg);
+                        }
+                    }
+                    break;
+                case "Guard":
+                    foreach (var data in rune_datas)
+                    {
+                        if (data.rune_data.name == rune_type[i])
+                        {
+                            plus_def += data.get_set_effect(cur_def);
+                        }
+                    }
+                    break;
+                case "Fatal":
+                    foreach (var data in rune_datas)
+                    {
+                        if (data.rune_data.name == rune_type[i])
+                        {
+                            plus_atk += data.get_set_effect(cur_atk);
+                        }
+                    }
+                    break;
+            }
         }
         #endregion
 
@@ -202,6 +273,8 @@ public class result_calculate_manager : MonoBehaviour
         // Set strategy pattern. (receive rune stat)
         #region Set rune stat scoreboard
         Dictionary<string, int> stat_scoreboard = separate_stats[number - 1];
+        Dictionary<string, int> conversion_stat_dict = new Dictionary<string, int>();
+        Dictionary<string, int> grind_stat_dict = new Dictionary<string, int>();
         // get rune data from seleted data
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         // check prefer stat and plus score in separte_stats
@@ -243,6 +316,38 @@ public class result_calculate_manager : MonoBehaviour
         Dictionary<string, int> temp_rune_info = new Dictionary<string, int>();
         Dictionary<string, int> temp_rune_stat_sum_info = new Dictionary<string, int>();
         List<int> temp_grinding_info = new List<int>();
+        #endregion
+
+        #region Check rune info whether ancient or not.
+        if(check_ancient)
+        {
+            string cur_rune_type = rune_name_infos[number - 1];
+            foreach(var data in rune_datas)
+            {
+                if(data.rune_data.name == cur_rune_type)
+                {
+                    if (data.rune_data.isAncient)
+                    {
+                        conversion_stat_dict = rune_stat_data.conversion_ancient_rune;
+                        grind_stat_dict = rune_stat_data.grind_ancient_rune;
+                        break;
+                    }
+                    else
+                    {
+                        conversion_stat_dict = rune_stat_data.conversion_normal_rune;
+                        grind_stat_dict = rune_stat_data.grind_normal_rune;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            conversion_stat_dict = rune_stat_data.conversion_normal_rune;
+            grind_stat_dict = rune_stat_data.grind_normal_rune;
+        }
+
+        Debug.Log(conversion_stat_dict.Count + " : " + grind_stat_dict.Count);
         #endregion
 
         #region Variable to limit stat that don't spill over target stat.
@@ -560,16 +665,16 @@ public class result_calculate_manager : MonoBehaviour
 
         #region Conversion rune stat after rainforce.
         // conversion rune stat
-        string converstion_stat;
-        if(pre_option_on) converstion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, temp_rune_info.Keys.ToList()[0]);
-        else converstion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, "");
+        string conversion_stat;
+        if(pre_option_on) conversion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, temp_rune_info.Keys.ToList()[0]);
+        else conversion_stat = CalConversionStatFromRune(temp_rune_info, pre_option_on, "");
 
-        if(converstion_stat != "")
+        if(conversion_stat != "")
         {
-            int converstion_stat_value = CalConversionStatValue(converstion_stat);
-
-            conversion_dict.Add(number, converstion_stat);
-            temp_rune_info[converstion_stat] = converstion_stat_value;
+            int converstion_stat_value = conversion_stat_dict[conversion_stat];
+            // Add conversion infomation to dict
+            conversion_dict.Add(number, conversion_stat);
+            temp_rune_info[conversion_stat] = converstion_stat_value;
         }
         else
         {
@@ -587,11 +692,11 @@ public class result_calculate_manager : MonoBehaviour
         // grinding rune stat
         for (int i = 0; i < temp_rune_stat_sum_info.Count; i++)
         {
-            
             string grind_stat = temp_rune_stat_sum_info.Keys.ToList()[i];
-            if (rune_stat_data.grind_normal_rune.ContainsKey(grind_stat))
+            if (grind_stat_dict.ContainsKey(grind_stat))
             {
-                int grind_stat_value = rune_stat_data.grind_normal_rune[grind_stat];
+                int grind_stat_value = grind_stat_dict[grind_stat];
+                // Add grind infomation in dict
                 temp_rune_stat_sum_info[grind_stat] += grind_stat_value;
                 temp_grinding_info.Add(grind_stat_value);
             }
@@ -711,13 +816,6 @@ public class result_calculate_manager : MonoBehaviour
             }
         }
         return check_stat;
-    }
-    // Set conversion stat value based on summoners war data.
-    int CalConversionStatValue(string conversion_stat)
-    {
-        int conversion_value = rune_stat_data.conversion_normal_rune[conversion_stat];
-
-        return conversion_value;
     }
     
     // Reset data to need calculating.
