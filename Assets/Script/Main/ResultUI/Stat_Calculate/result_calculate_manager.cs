@@ -817,7 +817,6 @@ public class result_calculate_manager : MonoBehaviour
         }
         return check_stat;
     }
-    
     // Reset data to need calculating.
     public void ResetStat()
     {
