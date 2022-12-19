@@ -141,6 +141,13 @@ public class rune_select_manager : MonoBehaviour
     {
         rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_stat_string = stat_string;
     }
+    private void RuneSlotImgChange(bool isAncient)
+    {
+        foreach(var rune_slot in rune_slots)
+        {
+            rune_slot.GetComponent<rune_slot_control>().RuneSlotImgChange(isAncient);
+        }
+    }
     public void RuneSlotClose()
     {
         cur_rune_number = 0;

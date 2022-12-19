@@ -273,6 +273,7 @@ public class result_calculate_manager : MonoBehaviour
         // Set strategy pattern. (receive rune stat)
         #region Set rune stat scoreboard
         Dictionary<string, int> stat_scoreboard = separate_stats[number - 1];
+        Dictionary<string, int> stat_rainforceboard = new Dictionary<string, int>();
         Dictionary<string, int> conversion_stat_dict = new Dictionary<string, int>();
         Dictionary<string, int> grind_stat_dict = new Dictionary<string, int>();
         // get rune data from seleted data
@@ -322,18 +323,22 @@ public class result_calculate_manager : MonoBehaviour
         if(check_ancient)
         {
             string cur_rune_type = rune_name_infos[number - 1];
+            // Search current rune type.
             foreach(var data in rune_datas)
             {
+                // find rune type and check ancient boolean
                 if(data.rune_data.name == cur_rune_type)
                 {
                     if (data.rune_data.isAncient)
                     {
+                        stat_rainforceboard = ancient_stat_rainforce_value;
                         conversion_stat_dict = rune_stat_data.conversion_ancient_rune;
                         grind_stat_dict = rune_stat_data.grind_ancient_rune;
                         break;
                     }
                     else
                     {
+                        stat_rainforceboard = stat_rainforce_value;
                         conversion_stat_dict = rune_stat_data.conversion_normal_rune;
                         grind_stat_dict = rune_stat_data.grind_normal_rune;
                         break;
@@ -343,11 +348,12 @@ public class result_calculate_manager : MonoBehaviour
         }
         else
         {
+            stat_rainforceboard = stat_rainforce_value;
             conversion_stat_dict = rune_stat_data.conversion_normal_rune;
             grind_stat_dict = rune_stat_data.grind_normal_rune;
         }
 
-        Debug.Log(conversion_stat_dict.Count + " : " + grind_stat_dict.Count);
+        // Debug.Log(conversion_stat_dict.Count + " : " + grind_stat_dict.Count);
         #endregion
 
         #region Variable to limit stat that don't spill over target stat.
@@ -441,9 +447,8 @@ public class result_calculate_manager : MonoBehaviour
                     continue;
 
                 int rainforce_value = 0;
-                // Set ancient value.
-                if(check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[prefer_stat_type[i]]);
-                else rainforce_value = CalRainforceValue(stat_rainforce_value[prefer_stat_type[i]]);
+                // Check ancient boolean and set base stat value.
+                rainforce_value = CalRainforceValue(stat_rainforceboard[prefer_stat_type[i]]);
                 
                 temp_rune_info.Add(prefer_stat_type[i], rainforce_value);
             }
@@ -464,8 +469,8 @@ public class result_calculate_manager : MonoBehaviour
                         break;
 
                     int rainforce_value = 0;
-                    if (check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[key]);
-                    else rainforce_value = CalRainforceValue(stat_rainforce_value[key]);
+                    // Check ancient boolean and set base stat value.
+                    rainforce_value = CalRainforceValue(stat_rainforceboard[key]);
 
                     temp_rune_info.Add(key, rainforce_value);
                 }
@@ -551,9 +556,9 @@ public class result_calculate_manager : MonoBehaviour
                     continue;
 
                 int rainforce_value = 0;
-                if (check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[prefer_stat_type[i]]);
-                else rainforce_value = CalRainforceValue(stat_rainforce_value[prefer_stat_type[i]]);
-                
+                // Check ancient boolean and set base stat value.
+                rainforce_value = CalRainforceValue(stat_rainforceboard[prefer_stat_type[i]]);
+
                 temp_rune_info.Add(prefer_stat_type[i], rainforce_value);
             }
 
@@ -573,9 +578,9 @@ public class result_calculate_manager : MonoBehaviour
                         break;
 
                     int rainforce_value = 0;
-                    if (check_ancient) rainforce_value = CalRainforceValue(ancient_stat_rainforce_value[key]);
-                    else rainforce_value = CalRainforceValue(stat_rainforce_value[key]);
-                    
+                    // Check ancient boolean and set base stat value.
+                    rainforce_value = CalRainforceValue(stat_rainforceboard[key]);
+
                     temp_rune_info.Add(key, rainforce_value);
                 }
 

@@ -3522,6 +3522,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6fafbc681bfa5449910ac740072e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rune_data: {fileID: 2064654946}
+  rune_selected_normal: {fileID: 21300000, guid: 4a1192a80e9539a46899c58fdf4c4e74,
+    type: 3}
+  rune_selected_ancient: {fileID: 21300000, guid: ce8cf6b8ab1b2e64b96646ca480e3cb2,
+    type: 3}
   dropdown_value: 0
   rune_stat_value: 0
   rune_info: 
@@ -26460,6 +26465,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6fafbc681bfa5449910ac740072e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rune_data: {fileID: 2064654946}
+  rune_selected_normal: {fileID: 21300000, guid: b5fe1e64805604341b6ee8c7d38d292a,
+    type: 3}
+  rune_selected_ancient: {fileID: 21300000, guid: b0723b9659c65e84db0a138dfdb0c0d2,
+    type: 3}
   dropdown_value: 0
   rune_stat_value: 0
   rune_info: 
@@ -31192,6 +31202,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6fafbc681bfa5449910ac740072e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rune_data: {fileID: 2064654946}
+  rune_selected_normal: {fileID: 21300000, guid: b4db78d6a8388f94bbbbc7460f2e9f0e,
+    type: 3}
+  rune_selected_ancient: {fileID: 21300000, guid: 3320697cd6bdc024ca4cbaf30dff1bca,
+    type: 3}
   dropdown_value: 0
   rune_stat_value: 0
   rune_info: 
@@ -31863,7 +31878,6 @@ GameObject:
   - component: {fileID: 1777988219}
   - component: {fileID: 1777988221}
   - component: {fileID: 1777988222}
-  - component: {fileID: 1777988223}
   m_Layer: 5
   m_Name: slot (1)
   m_TagString: Untagged
@@ -31994,118 +32008,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6fafbc681bfa5449910ac740072e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rune_data: {fileID: 2064654946}
+  rune_selected_normal: {fileID: 21300000, guid: 275c9e6f3ccaa2f4982ebacca1f61261,
+    type: 3}
+  rune_selected_ancient: {fileID: 21300000, guid: be6be32e425c6c74fa3e20965a4a11c2,
+    type: 3}
   dropdown_value: 0
   rune_stat_value: 0
   rune_info: 
   rune_stat_string: 
---- !u!114 &1777988223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777988217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateType: 0
-  isSpeedBased: 0
-  hasOnStart: 0
-  hasOnPlay: 0
-  hasOnUpdate: 0
-  hasOnStepComplete: 0
-  hasOnComplete: 0
-  hasOnTweenCreated: 0
-  hasOnRewind: 0
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlay:
-    m_PersistentCalls:
-      m_Calls: []
-  onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  onStepComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onTweenCreated:
-    m_PersistentCalls:
-      m_Calls: []
-  onRewind:
-    m_PersistentCalls:
-      m_Calls: []
-  targetIsSelf: 1
-  targetGO: {fileID: 0}
-  tweenTargetIsTargetGO: 1
-  delay: 0
-  duration: 1
-  easeType: 27
-  easeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 1
-  loops: -1
-  id: 
-  isRelative: 0
-  isFrom: 0
-  isIndependentUpdate: 0
-  autoKill: 1
-  autoGenerate: 1
-  isActive: 1
-  isValid: 1
-  target: {fileID: 1777988219}
-  animationType: 7
-  targetType: 3
-  forcedTargetType: 0
-  autoPlay: 1
-  useTargetAsV3: 0
-  endValueFloat: 1
-  endValueV3: {x: 0, y: 0, z: 0}
-  endValueV2: {x: 0, y: 0}
-  endValueColor: {r: 1, g: 1, b: 1, a: 1}
-  endValueString: 
-  endValueRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  endValueTransform: {fileID: 0}
-  optionalBool0: 0
-  optionalBool1: 0
-  optionalFloat0: 0
-  optionalInt0: 0
-  optionalRotationMode: 0
-  optionalScrambleMode: 0
-  optionalShakeRandomnessMode: 0
-  optionalString: 
 --- !u!1 &1782559667
 GameObject:
   m_ObjectHideFlags: 0
@@ -34495,6 +34406,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6fafbc681bfa5449910ac740072e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rune_data: {fileID: 2064654946}
+  rune_selected_normal: {fileID: 21300000, guid: db968e8089aa59841a5643fb859b8f48,
+    type: 3}
+  rune_selected_ancient: {fileID: 21300000, guid: d41a82f5ca5a23444ab99ea642580db4,
+    type: 3}
   dropdown_value: 0
   rune_stat_value: 0
   rune_info: 
@@ -37740,6 +37656,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6fafbc681bfa5449910ac740072e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rune_data: {fileID: 2064654946}
+  rune_selected_normal: {fileID: 21300000, guid: e9611dd7d18656945b97eda3dd0efab4,
+    type: 3}
+  rune_selected_ancient: {fileID: 21300000, guid: 1edf7e1f094626043adb6c43d50fed25,
+    type: 3}
   dropdown_value: 0
   rune_stat_value: 0
   rune_info: 

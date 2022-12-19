@@ -17,4 +17,18 @@ public class rune_control : MonoBehaviour
         }
         #endregion
     }
+    public bool CheckAncientRune(string rune_type)
+    {
+        bool check_ancient = false;
+        foreach(var rune in runes)
+        {
+            if(rune.rune_data.name == rune_type)
+            {
+                check_ancient = rune.rune_data.isAncient;
+                break;
+            }
+        }
+
+        return check_ancient;
+    }
 }

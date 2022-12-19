@@ -150,16 +150,20 @@ public class select_data_control : MonoBehaviour
         angelmon_yellow_anim.SetTrigger("IsMotion", () =>
         {
             isangelyellow = false;
+            // Set Ancient Rune Effect
+            if (isAncient == false)
+            {
+                isAncient = true;
+                // Set rune slot img to ancient
+                this.gameObject.SendMessageUpwards("RuneSlotImgChange", isAncient);
+            }
+            else
+            {
+                isAncient = false;
+                // Set rune slot img to normal
+                this.gameObject.SendMessageUpwards("RuneSlotImgChange", isAncient);
+            }
         });
-        // Set Ancient Rune Effect
-        if (isAncient == false)
-        {
-            isAncient = true;
-        }
-        else
-        {
-            isAncient = false;
-        }
     }
     public void ResetPreferStat()
     {
