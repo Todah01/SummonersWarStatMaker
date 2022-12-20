@@ -6,6 +6,7 @@ public struct Data
 {
     public string name;
     public int rune_count;
+    public int number_of_actives;
     public bool isAncient;
 }
 public abstract class rune_set_class : MonoBehaviour

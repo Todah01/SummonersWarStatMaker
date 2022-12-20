@@ -8,6 +8,7 @@ public class Fatal : rune_set_class
     {
         rune_data.name = "Fatal";
         rune_data.rune_count = 0;
+        rune_data.number_of_actives = 4;
         rune_data.isAncient = false;
     }
     public override int get_set_effect(int data)

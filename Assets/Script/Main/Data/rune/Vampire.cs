@@ -8,6 +8,7 @@ public class Vampire : rune_set_class
     {
         rune_data.name = "Vampire";
         rune_data.rune_count = 0;
+        rune_data.number_of_actives = 4;
         rune_data.isAncient = true;
     }
     public override int get_set_effect(int data)
