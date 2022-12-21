@@ -6,6 +6,7 @@ public class rune_control : MonoBehaviour
 {
     #region public Variable
     public List<rune_set_class> runes;
+    public List<Sprite> rune_imgs;
     #endregion
 
     private void Start()

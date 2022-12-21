@@ -8,6 +8,7 @@ public class rune_select_manager : MonoBehaviour
     #region Public Variable
     public GameObject rune_set_ui;
     public GameObject etc_BG;
+    public GameObject preview_manager;
     public GameObject[] rune_slots;
     public Image[] rune_img;
     public Text rune_number;
@@ -15,16 +16,6 @@ public class rune_select_manager : MonoBehaviour
     #endregion
 
     #region Local Variable
-    Dictionary<int, string> cur_rune_status = new Dictionary<int, string>()
-    {
-        { 1, "" },
-        { 2, "" },
-        { 3, "" },
-        { 4, "" },
-        { 5, "" },
-        { 6, "" }
-    };
-    Dictionary<string, int> cur_rune_set_status;
     int cur_rune_number = 0;
     #endregion
 
@@ -53,23 +44,17 @@ public class rune_select_manager : MonoBehaviour
     // Activate when rune set is change.
     private void Rune_Set_Change(object[] parameters)
     {
-        int before_dropdown_value = 0;
-        Set_rune_name((string)parameters[0]);
+        string before_rune_set_name = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_info;
 
         if ((string)parameters[0] == "* Select a rune set *")
         {
+            Debug.Log("First");
+            preview_manager.GetComponent<rune_set_preview_control>().
+                RuneSetPreviewSetting(before_rune_set_name, "subtract");
+
             // Current Rune Setting
-            before_dropdown_value = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value;
-            rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value = 0;
-
-            object[] dropdown_values = new object[2];
-            dropdown_values[0] = before_dropdown_value;
-            dropdown_values[1] = (int)parameters[2];
-
-            gameObject.BroadcastMessage("Rune_Set_Setting", dropdown_values);
-
-            // Clear rune statue.
-            cur_rune_status[cur_rune_number - 1] = "";
+            Set_rune_name((string)parameters[0]);
+            Set_rune_dropdown_value(0);
 
             // Clear rune image alpha value.
             Color slot_color = rune_slots[cur_rune_number - 1].GetComponent<Image>().color;
@@ -88,30 +73,25 @@ public class rune_select_manager : MonoBehaviour
         else
         {
             // Current Rune Setting
-            if(rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value != 0)
+            if(rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value == 0)
             {
-                before_dropdown_value = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value;
-                rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value = (int)parameters[2];
-               
-                object[] dropdown_values = new object[2];
-                dropdown_values[0] = before_dropdown_value;
-                dropdown_values[1] = (int)parameters[2];
+                Debug.Log("Second");
+                Set_rune_name((string)parameters[0]);
+                Set_rune_dropdown_value((int)parameters[2]);
 
-                gameObject.BroadcastMessage("Rune_Set_Setting", dropdown_values);
-                // Rune Statue Setting
-                cur_rune_status[cur_rune_number - 1] = (string)parameters[0];
+                preview_manager.GetComponent<rune_set_preview_control>().
+                    RuneSetPreviewSetting((string)parameters[0], "add");
             }
             else
             {
-                rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value = (int)parameters[2];
-                
-                object[] dropdown_values = new object[2];
-                dropdown_values[0] = before_dropdown_value;
-                dropdown_values[1] = (int)parameters[2];
+                Debug.Log("Third");
+                Set_rune_name((string)parameters[0]);
+                Set_rune_dropdown_value((int)parameters[2]);
 
-                gameObject.BroadcastMessage("Rune_Set_Setting", dropdown_values);
-                // Rune Statue Setting
-                cur_rune_status[cur_rune_number - 1] = (string)parameters[0];
+                preview_manager.GetComponent<rune_set_preview_control>().
+                    RuneSetPreviewSetting(before_rune_set_name, "subtract");
+                preview_manager.GetComponent<rune_set_preview_control>().
+                    RuneSetPreviewSetting((string)parameters[0], "add");
             }
 
             // Change rune image alpha.
@@ -132,6 +112,10 @@ public class rune_select_manager : MonoBehaviour
     private void Set_rune_name(string rune_name)
     {
         rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_info = rune_name;
+    }
+    private void Set_rune_dropdown_value(int value)
+    {
+        rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value = value;
     }
     private void Set_Stat_Value(int stat_value)
     {

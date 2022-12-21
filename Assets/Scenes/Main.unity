@@ -10709,7 +10709,7 @@ GameObject:
   - component: {fileID: 679650270}
   - component: {fileID: 679650272}
   - component: {fileID: 679650271}
-  - component: {fileID: 679650273}
+  - component: {fileID: 679650274}
   m_Layer: 5
   m_Name: rune_preview
   m_TagString: Untagged
@@ -10777,7 +10777,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679650269}
   m_CullTransparentMesh: 0
---- !u!114 &679650273
+--- !u!114 &679650274
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10786,22 +10786,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 679650269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69853f785853b0548b63797478f67f73, type: 3}
+  m_Script: {fileID: 11500000, guid: 32d33f47fb0742e46ab8a1cbb6d39417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rune_set_data: {fileID: 94021093}
+  rune_datas: {fileID: 2064654946}
   preview_slots:
   - {fileID: 874313832}
   - {fileID: 1754100463}
   - {fileID: 837308462}
-  preview_img:
-  - {fileID: 2023134869}
-  - {fileID: 820743613}
-  - {fileID: 604675931}
-  preview_txt:
+  preview_titles:
   - {fileID: 1997969659}
   - {fileID: 1785451936}
   - {fileID: 1199005601}
+  preview_imgs:
+  - {fileID: 2023134869}
+  - {fileID: 820743613}
+  - {fileID: 604675931}
 --- !u!1 &681278430
 GameObject:
   m_ObjectHideFlags: 0
@@ -13897,7 +13897,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 111, y: -196}
+  m_AnchoredPosition: {x: 111, y: -213}
   m_SizeDelta: {x: 480, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820876995
@@ -20365,7 +20365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 46, y: -168}
+  m_AnchoredPosition: {x: 46, y: -185}
   m_SizeDelta: {x: 700, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1173439313
@@ -33044,6 +33044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rune_set_ui: {fileID: 2103378209}
   etc_BG: {fileID: 86026413}
+  preview_manager: {fileID: 679650269}
   rune_slots:
   - {fileID: 1777988217}
   - {fileID: 1714028850}
@@ -37109,6 +37110,28 @@ MonoBehaviour:
   - {fileID: 2064654952}
   - {fileID: 2064654951}
   - {fileID: 2064654950}
+  rune_imgs:
+  - {fileID: 21300000, guid: c292074a11d43da47bb05e66c0449b1e, type: 3}
+  - {fileID: 21300000, guid: c63d80f058efa3a499f342fde36c5eaf, type: 3}
+  - {fileID: 21300000, guid: 9720e20a2408391469771ee588173a73, type: 3}
+  - {fileID: 21300000, guid: 28da8358bb5dc7e4983d921e9cacaa07, type: 3}
+  - {fileID: 21300000, guid: ac82902189ac45946ae6d24e85e37b26, type: 3}
+  - {fileID: 21300000, guid: b3e541d799e65ae4fad16222761111a6, type: 3}
+  - {fileID: 21300000, guid: df636092d80b4c348b10c5a6af9058bf, type: 3}
+  - {fileID: 21300000, guid: b51c6ddca89a7b042aca9ac6727d4e0f, type: 3}
+  - {fileID: 21300000, guid: b4146758d2115df46a125033c7b2441c, type: 3}
+  - {fileID: 21300000, guid: f3fef5329e5e401489517abafbe627d5, type: 3}
+  - {fileID: 21300000, guid: 6c97bd261f70c784a9c5911adc701e36, type: 3}
+  - {fileID: 21300000, guid: 7bff8bc62de9a0847ac46aedad135765, type: 3}
+  - {fileID: 21300000, guid: d982795fa9a746546b33585b3ff2ce3e, type: 3}
+  - {fileID: 21300000, guid: 5674358391e094048962369ad4d9adaa, type: 3}
+  - {fileID: 21300000, guid: 5296fd78141880d459932464f39c5b6b, type: 3}
+  - {fileID: 21300000, guid: c8cea429397f9a24789e793f33245c34, type: 3}
+  - {fileID: 21300000, guid: 6ec9a731e23e0034cbd0afd8e1e41b95, type: 3}
+  - {fileID: 21300000, guid: 398422da3b62a5c4aa8768c6f95e170a, type: 3}
+  - {fileID: 21300000, guid: b4013c09d5a19e94e914bbe88c99520f, type: 3}
+  - {fileID: 21300000, guid: fce781056d7f9844da7c9e682037a7cb, type: 3}
+  - {fileID: 21300000, guid: 2bd9fc2f10a6b8d4d92eb6f80b908fe5, type: 3}
 --- !u!114 &2064654950
 MonoBehaviour:
   m_ObjectHideFlags: 0
