@@ -17,12 +17,19 @@ public class rune_select_manager : MonoBehaviour
 
     #region Local Variable
     int cur_rune_number = 0;
+    rune_slot_control rune_slot_manager;
+    Image rune_slot_img_manager;
+    Image rune_pattern_manager;
     #endregion
 
     public void RuneSlotClick(int number)
     {
+        // Set current rune infomation
         cur_rune_number = number;
-        
+        rune_slot_manager = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>();
+        rune_slot_img_manager = rune_slots[cur_rune_number - 1].GetComponent<Image>();
+        rune_pattern_manager = rune_img[cur_rune_number - 1].GetComponent<Image>();
+
         // Disable stat dropdown if rune number is odd number.
         if (cur_rune_number % 2 == 1) rune_stat_dropdown.interactable = false;
         else rune_stat_dropdown.interactable = true;
@@ -34,9 +41,9 @@ public class rune_select_manager : MonoBehaviour
 
         // Fill rune infos in object for send info to others.
         object[] rune_infos = new object[3];
-        rune_infos[0] = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value;
+        rune_infos[0] = rune_slot_manager.dropdown_value;
         rune_infos[1] = cur_rune_number;
-        rune_infos[2] = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_stat_value;
+        rune_infos[2] = rune_slot_manager.rune_stat_value;
 
         gameObject.BroadcastMessage("SetFunction_UI", rune_infos);
     }
@@ -44,11 +51,11 @@ public class rune_select_manager : MonoBehaviour
     // Activate when rune set is change.
     private void Rune_Set_Change(object[] parameters)
     {
-        string before_rune_set_name = rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_info;
+        string before_rune_set_name = rune_slot_manager.rune_info;
 
         if ((string)parameters[0] == "* Select a rune set *")
         {
-            Debug.Log("First");
+            // Debug.Log("First");
             preview_manager.GetComponent<rune_set_preview_control>().
                 RuneSetPreviewSetting(before_rune_set_name, "subtract");
 
@@ -57,25 +64,25 @@ public class rune_select_manager : MonoBehaviour
             Set_rune_dropdown_value(0);
 
             // Clear rune image alpha value.
-            Color slot_color = rune_slots[cur_rune_number - 1].GetComponent<Image>().color;
+            Color slot_color = rune_slot_img_manager.color;
             slot_color.a = 0f;
-            rune_slots[cur_rune_number - 1].GetComponent<Image>().color = slot_color;
+            rune_slot_img_manager.color = slot_color;
 
             // Clear rune pattern.
-            Sprite slot_pattern = rune_img[cur_rune_number - 1].GetComponent<Image>().sprite;
+            Sprite slot_pattern = rune_pattern_manager.sprite;
             slot_pattern = (Sprite)parameters[1];
-            rune_img[cur_rune_number - 1].GetComponent<Image>().sprite = slot_pattern;
+            rune_pattern_manager.sprite = slot_pattern;
 
-            Color slot_pattern_color = rune_img[cur_rune_number - 1].GetComponent<Image>().color;
+            Color slot_pattern_color = rune_pattern_manager.color;
             slot_pattern_color.a = 0f;
-            rune_img[cur_rune_number - 1].GetComponent<Image>().color = slot_pattern_color;
+            rune_pattern_manager.color = slot_pattern_color;
         }
         else
         {
             // Current Rune Setting
-            if(rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value == 0)
+            if(rune_slot_manager.dropdown_value == 0)
             {
-                Debug.Log("Second");
+                // Debug.Log("Second");
                 Set_rune_name((string)parameters[0]);
                 Set_rune_dropdown_value((int)parameters[2]);
 
@@ -84,7 +91,7 @@ public class rune_select_manager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Third");
+                // Debug.Log("Third");
                 Set_rune_name((string)parameters[0]);
                 Set_rune_dropdown_value((int)parameters[2]);
 
@@ -95,35 +102,35 @@ public class rune_select_manager : MonoBehaviour
             }
 
             // Change rune image alpha.
-            Color slot_color = rune_slots[cur_rune_number - 1].GetComponent<Image>().color;
+            Color slot_color = rune_slot_img_manager.color;
             slot_color.a = 1f;
-            rune_slots[cur_rune_number - 1].GetComponent<Image>().color = slot_color;
+            rune_slot_img_manager.color = slot_color;
 
             // Change rune pattern change.
-            Sprite slot_pattern = rune_img[cur_rune_number - 1].GetComponent<Image>().sprite;
+            Sprite slot_pattern = rune_pattern_manager.sprite;
             slot_pattern = (Sprite)parameters[1];
-            rune_img[cur_rune_number - 1].GetComponent<Image>().sprite = slot_pattern;
+            rune_pattern_manager.sprite = slot_pattern;
 
-            Color slot_pattern_color = rune_img[cur_rune_number - 1].GetComponent<Image>().color;
+            Color slot_pattern_color = rune_pattern_manager.color;
             slot_pattern_color.a = 1f;
-            rune_img[cur_rune_number - 1].GetComponent<Image>().color = slot_pattern_color;
+            rune_pattern_manager.color = slot_pattern_color;
         }
     }
     private void Set_rune_name(string rune_name)
     {
-        rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_info = rune_name;
+        rune_slot_manager.rune_info = rune_name;
     }
     private void Set_rune_dropdown_value(int value)
     {
-        rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().dropdown_value = value;
+        rune_slot_manager.dropdown_value = value;
     }
     private void Set_Stat_Value(int stat_value)
     {
-        rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_stat_value = stat_value;
+        rune_slot_manager.rune_stat_value = stat_value;
     }
     private void Set_Stat_String(string stat_string)
     {
-        rune_slots[cur_rune_number - 1].GetComponent<rune_slot_control>().rune_stat_string = stat_string;
+        rune_slot_manager.rune_stat_string = stat_string;
     }
     private void RuneSlotImgChange(bool isAncient)
     {
