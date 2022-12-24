@@ -33042,6 +33042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc495526d2109c94ab016cbcc3b6dea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected_data: {fileID: 691452825}
   rune_set_ui: {fileID: 2103378209}
   etc_BG: {fileID: 86026413}
   preview_manager: {fileID: 679650269}

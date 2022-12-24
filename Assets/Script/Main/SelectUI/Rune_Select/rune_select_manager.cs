@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class rune_select_manager : MonoBehaviour
 {
     #region Public Variable
+    public GameObject selected_data;
     public GameObject rune_set_ui;
     public GameObject etc_BG;
     public GameObject preview_manager;
@@ -100,6 +101,10 @@ public class rune_select_manager : MonoBehaviour
                 preview_manager.GetComponent<rune_set_preview_control>().
                     RuneSetPreviewSetting((string)parameters[0], "add");
             }
+
+            // Set rune image with check ancient
+            rune_slot_manager.RuneSlotImgChange(selected_data.
+                GetComponent<select_data_control>().isAncient);
 
             // Change rune image alpha.
             Color slot_color = rune_slot_img_manager.color;
