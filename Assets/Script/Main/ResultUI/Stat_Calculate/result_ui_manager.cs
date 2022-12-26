@@ -32,8 +32,10 @@ public class result_ui_manager : MonoBehaviour
         string moneter_name_tolower = monster_name.ToLower();
         for (int i = 0; i < monster_imgs.Length; i++)
         {
+            
             if (monster_imgs[i].name.ToLower().Contains(moneter_name_tolower))
             {
+                Debug.Log(moneter_name_tolower);
                 monster_profile_img.sprite = monster_imgs[i];
                 break;
             }

@@ -720,6 +720,11 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 1b0268ff6c848bf4b8b8168c38820d8a, type: 3}
     - {fileID: 2800000, guid: c3ae27eff937b7f46a8ab91b2b3970be, type: 3}
     - {fileID: 2800000, guid: 813c43bcaedd9144295c3af46b202a07, type: 3}
+    - {fileID: 2800000, guid: 829e854be4439b540937c149fce2f8ed, type: 3}
+    - {fileID: 2800000, guid: f165403090a0e5b4584e35aee5539e3e, type: 3}
+    - {fileID: 2800000, guid: f317b22306936ab4f84dc63680cc2e79, type: 3}
+    - {fileID: 2800000, guid: c800987adda9a384382612e4dac47a3c, type: 3}
+    - {fileID: 2800000, guid: 4848a8747b8594a4a926316dbc8f0e3e, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -728,6 +733,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 23a0701093891354ca11529699a39dbb, type: 3}
   - {fileID: 21300000, guid: 1e5cac10bfb9b854fb5572abd73e5206, type: 3}
   - {fileID: 21300000, guid: 20d7df10cf699f646a43c8e49cdb4ca2, type: 3}
+  - {fileID: 21300000, guid: f165403090a0e5b4584e35aee5539e3e, type: 3}
   - {fileID: 21300000, guid: 0f7f5130d8a4d054198fc55e8104d169, type: 3}
   - {fileID: 21300000, guid: afd7a8305e2bea549a28779941dfca49, type: 3}
   - {fileID: 21300000, guid: d560bb30962792547ac922ecc1bc4c78, type: 3}
@@ -854,6 +860,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 45fa6d031ada0ca479145633ecb8be4c, type: 3}
   - {fileID: 21300000, guid: 28fa5b132868cee428250f5ddebc7978, type: 3}
   - {fileID: 21300000, guid: cf532e13d90429d4bb1d8a9ba95bcae4, type: 3}
+  - {fileID: 21300000, guid: f317b22306936ab4f84dc63680cc2e79, type: 3}
   - {fileID: 21300000, guid: b0da9a23073d4864682953f4f3a0b28e, type: 3}
   - {fileID: 21300000, guid: 1febbc2384bd42a488ae055c3b82b061, type: 3}
   - {fileID: 21300000, guid: 67dabd234298d8b42b3c934f6475b6d1, type: 3}
@@ -905,6 +912,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4c2562748310d8a498615321f8d0a24d, type: 3}
   - {fileID: 21300000, guid: e53be274f06c33f438ab9c1e560c9e3c, type: 3}
   - {fileID: 21300000, guid: 4cf4a674aa084af4e824747fe008df42, type: 3}
+  - {fileID: 21300000, guid: 4848a8747b8594a4a926316dbc8f0e3e, type: 3}
   - {fileID: 21300000, guid: 23749184e4f47ed45a89560a7762bb06, type: 3}
   - {fileID: 21300000, guid: 1149db8401903da4386e3485a2291b25, type: 3}
   - {fileID: 21300000, guid: 88372194cb49ab94caef62420eea996b, type: 3}
@@ -1170,6 +1178,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 18f87c6ad029bbd48810c6a10b2c413b, type: 3}
   - {fileID: 21300000, guid: bfd0607aa57e82f4586b23e182b8f267, type: 3}
   - {fileID: 21300000, guid: 9706547a6fb457241af9190c2d393192, type: 3}
+  - {fileID: 21300000, guid: c800987adda9a384382612e4dac47a3c, type: 3}
   - {fileID: 21300000, guid: 0292068aefc3ce94b90e3e9213a99807, type: 3}
   - {fileID: 21300000, guid: 77d0c78a10a05e641b739ed144b20c01, type: 3}
   - {fileID: 21300000, guid: 8cd8ed8ab229cc2448f73b3cef31f922, type: 3}
@@ -1204,6 +1213,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 94ecb63be5d7e464d95f28136573261b, type: 3}
   - {fileID: 21300000, guid: 9562993b48174744e80e66a01c827faf, type: 3}
   - {fileID: 21300000, guid: 9c5f154b127963744a83832451e1e6f7, type: 3}
+  - {fileID: 21300000, guid: 829e854be4439b540937c149fce2f8ed, type: 3}
   - {fileID: 21300000, guid: cb3a1c4ba9f74fc47942431184850bb1, type: 3}
   - {fileID: 21300000, guid: d673e85bc36b2ff4187cff6edfbbb4be, type: 3}
   - {fileID: 21300000, guid: 2858776bdb3095041afce665ba4c9002, type: 3}
@@ -1419,6 +1429,7 @@ SpriteAtlas:
   - miriam
   - Ariel_Icon
   - Celia_Icon
+  - Zibala
   - beelzebub
   - Lisa-Fire-New
   - Khmun-Fire
@@ -1545,6 +1556,7 @@ SpriteAtlas:
   - dominic
   - Rizak_Icon
   - phenaka
+  - Smicer
   - ROBO-F29
   - Groggo_Icon-1
   - christina
@@ -1596,6 +1608,7 @@ SpriteAtlas:
   - Jun-Fire
   - Kaien_Icon
   - zenobia
+  - Kovarci
   - Fire Hollyberry Cookie
   - Pigma_Icon-1
   - Qebehsenuef-Water
@@ -1861,6 +1874,7 @@ SpriteAtlas:
   - nangrim
   - Manannan-Dark
   - Garoche_Icon
+  - Zenisek
   - Wind_Homunculus
   - Zerath_Icon
   - Kuna-Dark
@@ -1895,6 +1909,7 @@ SpriteAtlas:
   - Hathor-Wind
   - Gin_Icon
   - woosa
+  - Zima
   - mephisto
   - Fei-Dark
   - Malaka-Water

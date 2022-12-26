@@ -80,11 +80,11 @@ public class rune_set_preview_control : MonoBehaviour
                 }
             }
 
-            Debug.Log(info.rune_data.name + " : " + info.rune_data.rune_count);
+            // Debug.Log(info.rune_data.name + " : " + info.rune_data.rune_count);
         }
 
-        foreach (var info in activate_rune_sets)
-            Debug.Log(info);
+        //foreach (var info in activate_rune_sets)
+        //    Debug.Log(info);
 
         // Active preview slot
         for (int i = 0; i < activate_rune_sets.Count; i++)

@@ -16675,6 +16675,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1b0268ff6c848bf4b8b8168c38820d8a, type: 3}
   - {fileID: 21300000, guid: c3ae27eff937b7f46a8ab91b2b3970be, type: 3}
   - {fileID: 21300000, guid: 813c43bcaedd9144295c3af46b202a07, type: 3}
+  - {fileID: 21300000, guid: 829e854be4439b540937c149fce2f8ed, type: 3}
+  - {fileID: 21300000, guid: f165403090a0e5b4584e35aee5539e3e, type: 3}
+  - {fileID: 21300000, guid: c800987adda9a384382612e4dac47a3c, type: 3}
+  - {fileID: 21300000, guid: 4848a8747b8594a4a926316dbc8f0e3e, type: 3}
+  - {fileID: 21300000, guid: f317b22306936ab4f84dc63680cc2e79, type: 3}
   monster_name_txt: {fileID: 253230201}
   base_monster_stats_txt:
   - {fileID: 1555702225}

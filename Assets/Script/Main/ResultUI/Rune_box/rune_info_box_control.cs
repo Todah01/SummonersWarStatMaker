@@ -163,7 +163,7 @@ public class rune_info_box_control : MonoBehaviour
         {
             string percentage = "";
 
-            Debug.Log(dict.Key + " : " + dict.Value);
+            // Debug.Log(dict.Key + " : " + dict.Value);
 
             // check pre option
             if (ispreoption)

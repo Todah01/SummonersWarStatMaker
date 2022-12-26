@@ -308,10 +308,10 @@ public class result_calculate_manager : MonoBehaviour
         // sort stat_scoreboard by value
         stat_scoreboard = stat_scoreboard.OrderByDescending(item => item.Value).ToDictionary(x => x.Key, x => x.Value);
 
-        foreach(var stat in stat_scoreboard)
-        {
-            Debug.Log(stat.Key + ":" + stat.Value + "\n");
-        }
+        //foreach(var stat in stat_scoreboard)
+        //{
+        //    Debug.Log(stat.Key + ":" + stat.Value + "\n");
+        //}
 
         // Set temporary dictionary for save rune info
         Dictionary<string, int> temp_rune_info = new Dictionary<string, int>();
