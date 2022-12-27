@@ -116,9 +116,9 @@ public class select_data_control : MonoBehaviour
         // Debug.Log(rune_dropdown_values.Count + " " + even_rune_stat_type.Count + " " + prefer_stat_type.Count);
 
         selected_monster.text = monster_name;
-        selected_rune_set.text = string.Join("\n\n", rune_type);
-        selected_rune_set_stat.text = string.Join("\n\n", even_rune_stat_type);
-        selected_stat.text = string.Join(", ", prefer_stat_type);
+        selected_rune_set.text = string.Join("\n", rune_type);
+        selected_rune_set_stat.text = string.Join("\n", even_rune_stat_type);
+        selected_stat.text = string.Join("   ", prefer_stat_type);
 
         etc_bg.SetActive(true);
         rune_check_window.SetActive(true);
