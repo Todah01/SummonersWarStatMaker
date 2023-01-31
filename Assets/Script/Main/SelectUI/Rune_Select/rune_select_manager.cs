@@ -19,6 +19,7 @@ public class rune_select_manager : MonoBehaviour
     #region Local Variable
     int cur_rune_number = 0;
     rune_slot_control rune_slot_manager;
+    GameObject rune_pattern_img;
     Image rune_slot_img_manager;
     Image rune_pattern_manager;
     #endregion
@@ -77,6 +78,8 @@ public class rune_select_manager : MonoBehaviour
             Color slot_pattern_color = rune_pattern_manager.color;
             slot_pattern_color.a = 0f;
             rune_pattern_manager.color = slot_pattern_color;
+            
+            rune_pattern_manager.enabled = false;
         }
         else
         {
@@ -119,6 +122,8 @@ public class rune_select_manager : MonoBehaviour
             Color slot_pattern_color = rune_pattern_manager.color;
             slot_pattern_color.a = 1f;
             rune_pattern_manager.color = slot_pattern_color;
+
+            rune_pattern_manager.enabled = true;
         }
     }
     private void Set_rune_name(string rune_name)

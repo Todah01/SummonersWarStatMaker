@@ -34,6 +34,7 @@ public class result_calculate_manager : MonoBehaviour
     List<string> even_rune_stat_type;
     List<string> prefer_stat_type;
     bool check_ancient;
+    bool check_legendary;
     int cur_hp, cur_atk, cur_def, cur_spd, cur_crirate, cur_cridmg, cur_res, cur_acc;
     int plus_hp, plus_atk, plus_def, plus_spd, plus_crirate, plus_cridmg, plus_res, plus_acc;
     #endregion
@@ -84,6 +85,7 @@ public class result_calculate_manager : MonoBehaviour
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         prefer_stat_type = selected_data.GetComponent<select_data_control>().prefer_stat_type;
         check_ancient = selected_data.GetComponent<select_data_control>().isAncient;
+        check_legendary = selected_data.GetComponent<select_data_control>().isLegendary;
         #endregion
 
         #region Get stat data from DB.
@@ -276,6 +278,12 @@ public class result_calculate_manager : MonoBehaviour
         Dictionary<string, int> stat_rainforceboard = new Dictionary<string, int>();
         Dictionary<string, int> conversion_stat_dict = new Dictionary<string, int>();
         Dictionary<string, int> grind_stat_dict = new Dictionary<string, int>();
+        int rainforce_limit = 0;
+        // set rune level
+        if (check_legendary)
+            rainforce_limit = 4;
+        else
+            rainforce_limit = 3;
         // get rune data from seleted data
         even_rune_stat_type = selected_data.GetComponent<select_data_control>().even_rune_stat_type;
         // check prefer stat and plus score in separte_stats
@@ -490,7 +498,7 @@ public class result_calculate_manager : MonoBehaviour
             int rainforce_cnt = 0;
 
             // rune rainforce
-            while (rainforce_cnt < 4)
+            while (rainforce_cnt < rainforce_limit)
             {
                 string rainforce_stat = CalRainforceStatNumber(temp_rune_info, pre_option_on);
                 int rainforce_value = CalRainforceValue(stat_rainforce_value[rainforce_stat]);
@@ -600,7 +608,7 @@ public class result_calculate_manager : MonoBehaviour
             int rainforce_cnt = 0;
 
             // rune rainforce
-            while (rainforce_cnt < 4)
+            while (rainforce_cnt < rainforce_limit)
             {
                 string rainforce_stat = "";
                 if (even_stat_type == "SPD")

@@ -32,6 +32,7 @@ public class select_data_control : MonoBehaviour
     public GameObject artifact_boxes;
     public GameObject left_artifact_dropdown;
     public GameObject right_artifact_dropdown;
+    public GameObject rune_icon_btn;
     public Text selected_monster;
     public Text selected_rune_set;
     public Text selected_rune_set_stat;
@@ -44,6 +45,7 @@ public class select_data_control : MonoBehaviour
     public List<string> even_rune_stat_type;
     public List<string> prefer_stat_type;
     public bool isAncient;
+    public bool isLegendary;
     #endregion
 
     #region Local Variable
@@ -114,6 +116,8 @@ public class select_data_control : MonoBehaviour
             check_prefer_stat = true;
 
         // Debug.Log(rune_dropdown_values.Count + " " + even_rune_stat_type.Count + " " + prefer_stat_type.Count);
+
+        isLegendary = rune_icon_btn.GetComponent<rune_level_select_control>().check_Legendary;
 
         selected_monster.text = monster_name;
         selected_rune_set.text = string.Join("\n", rune_type);

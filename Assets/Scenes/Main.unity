@@ -3523,6 +3523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rune_data: {fileID: 2064654946}
+  rune_img: {fileID: 1999868927}
   rune_selected_normal: {fileID: 21300000, guid: 4a1192a80e9539a46899c58fdf4c4e74,
     type: 3}
   rune_selected_ancient: {fileID: 21300000, guid: ce8cf6b8ab1b2e64b96646ca480e3cb2,
@@ -8747,13 +8748,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509518463}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.99215686, g: 0.6745098, b: 0.31764707, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -11434,6 +11435,7 @@ MonoBehaviour:
   artifact_boxes: {fileID: 653549646}
   left_artifact_dropdown: {fileID: 1441885579}
   right_artifact_dropdown: {fileID: 1692638389}
+  rune_icon_btn: {fileID: 1073008473}
   selected_monster: {fileID: 267577358}
   selected_rune_set: {fileID: 1046786357}
   selected_rune_set_stat: {fileID: 97048624}
@@ -11445,6 +11447,7 @@ MonoBehaviour:
   even_rune_stat_type: []
   prefer_stat_type: []
   isAncient: 0
+  isLegendary: 0
 --- !u!1 &692208029
 GameObject:
   m_ObjectHideFlags: 0
@@ -18733,13 +18736,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072301588}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.99215686, g: 0.6745098, b: 0.31764707, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -18763,6 +18766,150 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072301588}
   m_CullTransparentMesh: 0
+--- !u!1 &1073008473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1073008474}
+  - component: {fileID: 1073008477}
+  - component: {fileID: 1073008476}
+  - component: {fileID: 1073008475}
+  - component: {fileID: 1073008478}
+  m_Layer: 5
+  m_Name: rune_icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1073008474
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073008473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 1}
+  m_Children:
+  - {fileID: 2063595864}
+  m_Father: {fileID: 2064654947}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 163, y: 68}
+  m_SizeDelta: {x: 128, y: 128}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &1073008475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073008473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1073008476}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1073008478}
+        m_MethodName: onClickRuneIcon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1073008476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073008473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 1f260fcc920161e4cb2c6bef0b0c7fcf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1073008477
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073008473}
+  m_CullTransparentMesh: 0
+--- !u!114 &1073008478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073008473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45469bc659583b4690e52175b41d013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  check_Legendary: 0
 --- !u!1 &1078412809
 GameObject:
   m_ObjectHideFlags: 0
@@ -21976,13 +22123,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250224233}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.99215686, g: 0.6745098, b: 0.31764707, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -26471,6 +26618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rune_data: {fileID: 2064654946}
+  rune_img: {fileID: 509518463}
   rune_selected_normal: {fileID: 21300000, guid: b5fe1e64805604341b6ee8c7d38d292a,
     type: 3}
   rune_selected_ancient: {fileID: 21300000, guid: b0723b9659c65e84db0a138dfdb0c0d2,
@@ -30372,13 +30520,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696921364}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.99215686, g: 0.6745098, b: 0.31764707, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -30847,7 +30995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25}
+  m_AnchoredPosition: {x: -55, y: -25}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1711472691
@@ -31208,6 +31356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rune_data: {fileID: 2064654946}
+  rune_img: {fileID: 1072301588}
   rune_selected_normal: {fileID: 21300000, guid: b4db78d6a8388f94bbbbc7460f2e9f0e,
     type: 3}
   rune_selected_ancient: {fileID: 21300000, guid: 3320697cd6bdc024ca4cbaf30dff1bca,
@@ -32014,6 +32163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rune_data: {fileID: 2064654946}
+  rune_img: {fileID: 1696921364}
   rune_selected_normal: {fileID: 21300000, guid: 275c9e6f3ccaa2f4982ebacca1f61261,
     type: 3}
   rune_selected_ancient: {fileID: 21300000, guid: be6be32e425c6c74fa3e20965a4a11c2,
@@ -34414,6 +34564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rune_data: {fileID: 2064654946}
+  rune_img: {fileID: 1987789579}
   rune_selected_normal: {fileID: 21300000, guid: db968e8089aa59841a5643fb859b8f48,
     type: 3}
   rune_selected_ancient: {fileID: 21300000, guid: d41a82f5ca5a23444ab99ea642580db4,
@@ -35208,13 +35359,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987789579}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.99215686, g: 0.6745098, b: 0.31764707, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -35586,13 +35737,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999868927}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.99215686, g: 0.6745098, b: 0.31764707, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -36952,9 +37103,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063595863}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5384617, y: 1.5384617, z: 1}
   m_Children:
   - {fileID: 1777988218}
   - {fileID: 1714028851}
@@ -36962,12 +37113,12 @@ RectTransform:
   - {fileID: 2072988267}
   - {fileID: 179412189}
   - {fileID: 1922913294}
-  m_Father: {fileID: 2064654947}
-  m_RootOrder: 1
+  m_Father: {fileID: 1073008474}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -55, y: -110}
+  m_AnchoredPosition: {x: -271.38464, y: -209.84616}
   m_SizeDelta: {x: 219, y: 249}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063595865
@@ -37058,7 +37209,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1945596749}
-  - {fileID: 2063595864}
+  - {fileID: 1073008474}
   - {fileID: 679650270}
   - {fileID: 820876994}
   - {fileID: 1173439312}
@@ -37686,6 +37837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rune_data: {fileID: 2064654946}
+  rune_img: {fileID: 1250224233}
   rune_selected_normal: {fileID: 21300000, guid: e9611dd7d18656945b97eda3dd0efab4,
     type: 3}
   rune_selected_ancient: {fileID: 21300000, guid: 1edf7e1f094626043adb6c43d50fed25,
