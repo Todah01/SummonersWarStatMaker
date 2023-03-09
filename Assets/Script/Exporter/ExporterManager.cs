@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class ExporterManager : MonoBehaviour
 {
@@ -11,9 +12,11 @@ public class ExporterManager : MonoBehaviour
     public Texture2D resultTexture;
     public Image curImg;
     public Image resultImage;
+    public Image[] selectedMonsterImg;
     public string curMonsterName;
     public string totalMonstersName;
     public string resultSpriteSavePath;
+    public string fileName;
     public Sprite[] monster_imgs;
     public GameObject inputField;
     public GameObject resultImgViewer;
@@ -75,18 +78,6 @@ public class ExporterManager : MonoBehaviour
         resultImgViewer.SetActive(true);
     }
 
-    public void ExportSprite()
-    {
-        ExportTexture2D(resultTexture, resultSpriteSavePath);
-        Debug.Log("Download Complete!");
-    }
-
-    void ExportTexture2D(Texture2D tex, string outputPath)
-    {
-        byte[] bytes = tex.EncodeToPNG();
-        System.IO.File.WriteAllBytes(outputPath, bytes);
-    }
-
     public void FooBar(Texture2D myTexture2D)
     {
         // Texture2D 객체를 Sprite 객체로 변환
@@ -94,5 +85,30 @@ public class ExporterManager : MonoBehaviour
 
         // Sprite를 Image에 적용하여 화면에 표시
         resultImage.sprite = mySprite;
+    }
+
+    public void DownloadImage()
+    {
+        foreach(var img in selectedMonsterImg)
+        {
+            fileName += "_" + img.sprite.name;
+        }
+        fileName += ".png";
+
+        resultSpriteSavePath = EditorUtility.SaveFilePanel(
+            "Save Sprite",
+            "",
+            fileName,
+            "png");
+
+        if (resultSpriteSavePath.Length != 0)
+        {
+            byte[] bytes = resultTexture.EncodeToPNG();
+            System.IO.File.WriteAllBytes(resultSpriteSavePath, bytes);
+        }
+    }
+    public void ResetfileName()
+    {
+        fileName = "";
     }
 }
